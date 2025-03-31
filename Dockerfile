@@ -7,8 +7,7 @@ RUN apt-get update && \
     git \
     curl \
     python3.10 \
-    python3.10-dev \
-    python3.10-venv
+    python3.10-dev
 
 # Install Node.js 20 LTS
 RUN curl -sL https://deb.nodesource.com/setup_20.x | bash - && \
