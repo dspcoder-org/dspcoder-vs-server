@@ -1,7 +1,6 @@
 # DSPCoder-server
 
 #### Clone and build dev container
-    cd dev-container
     docker build --platform linux/amd64 -t dspcoder-vs-server .
 
     Start Container:

@@ -7,14 +7,18 @@ RUN apt-get update && \
     git \
     curl \
     python3.10 \
-    python3.10-dev
+    python3.10-dev \
+    libkrb5-dev \
+    pkg-config \
+    libx11-dev \
+    libxkbfile-dev
 
 # Install Node.js 20 LTS
 RUN curl -sL https://deb.nodesource.com/setup_20.x | bash - && \
     apt-get install -y nodejs
 
-# The following approach is better than using separate RUN commands with 'source'
-# Either use the Node.js we installed above (recommended) or use this modified NVM approach:
+# Install nvm and Node.js 20
+# Note: This is a workaround to install nvm and Node.js 20 in the same layer
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash && \
     export NVM_DIR="$HOME/.nvm" && \
     [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" && \
@@ -30,6 +34,10 @@ WORKDIR /home
 
 # Copy application files
 COPY ./source .
+
+# Install application dependencies
+# RUN cd /home && \
+#     npm install
 
 # Use bash as the container's entrypoint with proper syntax to keep it running
 CMD ["/bin/bash", "-c", "tail -f /dev/null"]
