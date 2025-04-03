@@ -37,7 +37,12 @@ COPY ./source .
 
 # Install application dependencies
 # RUN cd /home && \
+#     rm -rf node_modules package-lock.json && \
 #     npm install
+
+# build the application
+# RUN cd /home && \
+#     npm run build
 
 # Use bash as the container's entrypoint with proper syntax to keep it running
 CMD ["/bin/bash", "-c", "tail -f /dev/null"]
