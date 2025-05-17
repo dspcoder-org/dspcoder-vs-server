@@ -4,7 +4,7 @@
     docker build --platform linux/amd64 -t dspcoder-vs-server .
 
     Start Container:
-    docker run -d --name container-dspcoder-vs-server --cpus=2 --memory=2g --memory-swap=2g --blkio-weight=500 -p 3000:3000 dspcoder-vs-server
+    docker run -d --name container-dspcoder-vs-server -p 3000:3000 dspcoder-vs-server
 
 
 #### steps to build and development (Experimental) :

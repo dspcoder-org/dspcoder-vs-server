@@ -11,7 +11,8 @@ RUN apt-get update && \
     libkrb5-dev \
     pkg-config \
     libx11-dev \
-    libxkbfile-dev
+    libxkbfile-dev \
+    jq
 
 # Install Node.js 20 LTS
 RUN curl -sL https://deb.nodesource.com/setup_20.x | bash - && \
@@ -29,20 +30,21 @@ RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | b
 # expose port 3000
 EXPOSE 3000
 
+
+RUN cd /home && \
+    git clone https://github.com/coder/code-server.git && \
+    cd /home/code-server && \
+    git submodule update --init && \
+    npm install -g typescript && \
+    npm install @coder/logger && \
+    npm install && \
+    npm run build && \
+    VERSION='1.100.2' npm run build:vscode
+
 # Set working directory
-WORKDIR /home
+WORKDIR /home/code-server
 
-# Copy application files
-COPY ./source .
 
-# Install application dependencies
-# RUN cd /home && \
-#     rm -rf node_modules package-lock.json && \
-#     npm install
-
-# build the application
-# RUN cd /home && \
-#     npm run build
 
 # Use bash as the container's entrypoint with proper syntax to keep it running
 CMD ["/bin/bash", "-c", "tail -f /dev/null"]
