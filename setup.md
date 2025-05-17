@@ -118,6 +118,15 @@ npm install
 # Build code-server
 npm run build
 
+
+node . .
+
+build package. js
+VERSION=${VERSION:-$(jq -r .version < ./package.json)}
+OS=${OS:-$(uname -s | tr '[:upper:]' '[:lower:]')}
+ARCH=${ARCH:-$(uname -m | sed 's/x86_64/amd64/;s/aarch64/arm64/')}
+
+
 # Start in development mode
 npm run watch
 ```
