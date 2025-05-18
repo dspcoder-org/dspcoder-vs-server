@@ -112,6 +112,10 @@ cd code-server
 # Initialize submodule
 git submodule update --init
 
+
+# apply patches
+quilt push -a
+
 # Install dependencies
 npm install
 
