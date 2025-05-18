@@ -12,7 +12,8 @@ RUN apt-get update && \
     pkg-config \
     libx11-dev \
     libxkbfile-dev \
-    jq
+    jq \
+    quilt
 
 # Install Node.js 20 LTS
 RUN curl -sL https://deb.nodesource.com/setup_20.x | bash - && \
@@ -28,18 +29,19 @@ RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | b
     nvm alias default 20
 
 # expose port 3000
-EXPOSE 3000
+EXPOSE 8080
 
 
 RUN cd /home && \
     git clone https://github.com/coder/code-server.git && \
     cd /home/code-server && \
     git submodule update --init && \
+    quilt push -a && \
     npm install -g typescript && \
     npm install @coder/logger && \
-    npm install && \
-    npm run build && \
-    VERSION='1.100.2' npm run build:vscode
+    npm install
+    # npm run build && \
+    # VERSION='1.100.2' npm run build:vscode
 
 # Set working directory
 WORKDIR /home/code-server
