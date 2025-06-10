@@ -1,0 +1,521 @@
+diff --git a/code-server/lib/vscode/extensions/theme-defaults/themes/dark_modern.json b/code-server/lib/vscode/extensions/theme-defaults/themes/dark_modern.json
+index 57578ca9..5b634236 100644
+--- a/code-server/lib/vscode/extensions/theme-defaults/themes/dark_modern.json
++++ b/code-server/lib/vscode/extensions/theme-defaults/themes/dark_modern.json
+@@ -3,24 +3,24 @@
+ 	"name": "Default Dark Modern",
+ 	"include": "./dark_plus.json",
+ 	"colors": {
+-		"activityBar.activeBorder": "#0078D4",
++		"activityBar.activeBorder": "#cfff0d",
+ 		"activityBar.background": "#181818",
+ 		"activityBar.border": "#2B2B2B",
+ 		"activityBar.foreground": "#D7D7D7",
+ 		"activityBar.inactiveForeground": "#868686",
+-		"activityBarBadge.background": "#0078D4",
++		"activityBarBadge.background": "#8fb200",
+ 		"activityBarBadge.foreground": "#FFFFFF",
+ 		"badge.background": "#616161",
+ 		"badge.foreground": "#F8F8F8",
+-		"button.background": "#0078D4",
++		"button.background": "#92b700",
+ 		"button.border": "#FFFFFF12",
+ 		"button.foreground": "#FFFFFF",
+-		"button.hoverBackground": "#026EC1",
++		"button.hoverBackground": "#a9d205",
+ 		"button.secondaryBackground": "#313131",
+ 		"button.secondaryForeground": "#CCCCCC",
+ 		"button.secondaryHoverBackground": "#3C3C3C",
+ 		"chat.slashCommandBackground": "#34414B",
+-		"chat.slashCommandForeground": "#40A6FF",
++		"chat.slashCommandForeground": "#e5fa90",
+ 		"checkbox.background": "#313131",
+ 		"checkbox.border": "#3C3C3C",
+ 		"debugToolBar.background": "#181818",
+@@ -37,24 +37,24 @@
+ 		"editorGroupHeader.tabsBorder": "#2B2B2B",
+ 		"editorGutter.addedBackground": "#2EA043",
+ 		"editorGutter.deletedBackground": "#F85149",
+-		"editorGutter.modifiedBackground": "#0078D4",
++		"editorGutter.modifiedBackground": "#aad400",
+ 		"editorLineNumber.activeForeground": "#CCCCCC",
+ 		"editorLineNumber.foreground": "#6E7681",
+ 		"editorOverviewRuler.border": "#010409",
+ 		"editorWidget.background": "#202020",
+ 		"errorForeground": "#F85149",
+-		"focusBorder": "#0078D4",
++		"focusBorder": "#aad400",
+ 		"foreground": "#CCCCCC",
+ 		"icon.foreground": "#CCCCCC",
+ 		"input.background": "#313131",
+ 		"input.border": "#3C3C3C",
+ 		"input.foreground": "#CCCCCC",
+ 		"input.placeholderForeground": "#989898",
+-		"inputOption.activeBackground": "#2489DB82",
+-		"inputOption.activeBorder": "#2488DB",
++		"inputOption.activeBackground": "#adce28",
++		"inputOption.activeBorder": "#a4c22e",
+ 		"keybindingLabel.foreground": "#CCCCCC",
+ 		"menu.background": "#1F1F1F",
+-		"menu.selectionBackground": "#0078d4",
++		"menu.selectionBackground": "#99bf02",
+ 		"notificationCenterHeader.background": "#1F1F1F",
+ 		"notificationCenterHeader.foreground": "#CCCCCC",
+ 		"notifications.background": "#1F1F1F",
+@@ -63,7 +63,7 @@
+ 		"panel.background": "#181818",
+ 		"panel.border": "#2B2B2B",
+ 		"panelInput.border": "#2B2B2B",
+-		"panelTitle.activeBorder": "#0078D4",
++		"panelTitle.activeBorder": "#a3cb01",
+ 		"panelTitle.activeForeground": "#CCCCCC",
+ 		"panelTitle.inactiveForeground": "#9D9D9D",
+ 		"peekViewEditor.background": "#1F1F1F",
+@@ -71,7 +71,7 @@
+ 		"peekViewResult.background": "#1F1F1F",
+ 		"peekViewResult.matchHighlightBackground": "#BB800966",
+ 		"pickerGroup.border": "#3C3C3C",
+-		"progressBar.background": "#0078D4",
++		"progressBar.background": "#90b302",
+ 		"quickInput.background": "#222222",
+ 		"quickInput.foreground": "#CCCCCC",
+ 		"settings.dropdownBackground": "#313131",
+@@ -87,20 +87,20 @@
+ 		"sideBarTitle.foreground": "#CCCCCC",
+ 		"statusBar.background": "#181818",
+ 		"statusBar.border": "#2B2B2B",
+-		"statusBar.debuggingBackground": "#0078D4",
++		"statusBar.debuggingBackground": "#90b402",
+ 		"statusBar.debuggingForeground": "#FFFFFF",
+-		"statusBar.focusBorder": "#0078D4",
++		"statusBar.focusBorder": "#809f02",
+ 		"statusBar.foreground": "#CCCCCC",
+ 		"statusBar.noFolderBackground": "#1F1F1F",
+-		"statusBarItem.focusBorder": "#0078D4",
++		"statusBarItem.focusBorder": "#daf66b",
+ 		"statusBarItem.prominentBackground": "#6E768166",
+-		"statusBarItem.remoteBackground": "#0078D4",
++		"statusBarItem.remoteBackground": "#d5f941",
+ 		"statusBarItem.remoteForeground": "#FFFFFF",
+ 		"tab.activeBackground": "#1F1F1F",
+ 		"tab.activeBorder": "#1F1F1F",
+-		"tab.activeBorderTop": "#0078D4",
++		"tab.activeBorderTop": "#94b901",
+ 		"tab.activeForeground": "#FFFFFF",
+-		"tab.selectedBorderTop": "#6caddf",
++		"tab.selectedBorderTop": "#b7ca6d",
+ 		"tab.border": "#2B2B2B",
+ 		"tab.hoverBackground": "#1F1F1F",
+ 		"tab.inactiveBackground": "#181818",
+@@ -109,12 +109,12 @@
+ 		"tab.unfocusedActiveBorderTop": "#2B2B2B",
+ 		"tab.unfocusedHoverBackground": "#1F1F1F",
+ 		"terminal.foreground": "#CCCCCC",
+-		"terminal.tab.activeBorder": "#0078D4",
++		"terminal.tab.activeBorder": "#82a200",
+ 		"textBlockQuote.background": "#2B2B2B",
+ 		"textBlockQuote.border": "#616161",
+ 		"textCodeBlock.background": "#2B2B2B",
+-		"textLink.activeForeground": "#4daafc",
+-		"textLink.foreground": "#4daafc",
++		"textLink.activeForeground": "#e9ff92",
++		"textLink.foreground": "#e7fb99",
+ 		"textPreformat.foreground": "#D0D0D0",
+ 		"textPreformat.background": "#3C3C3C",
+ 		"textSeparator.foreground": "#21262D",
+@@ -124,7 +124,7 @@
+ 		"titleBar.inactiveBackground": "#1F1F1F",
+ 		"titleBar.inactiveForeground": "#9D9D9D",
+ 		"welcomePage.tileBackground": "#2B2B2B",
+-		"welcomePage.progress.foreground": "#0078D4",
++		"welcomePage.progress.foreground": "#d5f941",
+ 		"widget.border": "#313131",
+ 	},
+ }
+diff --git a/code-server/lib/vscode/src/vs/base/browser/ui/codicons/codicon/codicon.ttf b/code-server/lib/vscode/src/vs/base/browser/ui/codicons/codicon/codicon.ttf
+index 27ee4c68..a614f17c 100644
+Binary files a/code-server/lib/vscode/src/vs/base/browser/ui/codicons/codicon/codicon.ttf and b/code-server/lib/vscode/src/vs/base/browser/ui/codicons/codicon/codicon.ttf differ
+diff --git a/code-server/lib/vscode/src/vs/workbench/browser/parts/editor/editor.contribution.ts b/code-server/lib/vscode/src/vs/workbench/browser/parts/editor/editor.contribution.ts
+index fabc137b..e0bcb959 100644
+--- a/code-server/lib/vscode/src/vs/workbench/browser/parts/editor/editor.contribution.ts
++++ b/code-server/lib/vscode/src/vs/workbench/browser/parts/editor/editor.contribution.ts
+@@ -43,7 +43,7 @@ import {
+ 	SplitEditorToFirstGroupAction, SplitEditorToLastGroupAction, SplitEditorToLeftGroupAction, SplitEditorToNextGroupAction, SplitEditorToPreviousGroupAction, SplitEditorToRightGroupAction, NavigateForwardInEditsAction,
+ 	NavigateBackwardsInEditsAction, NavigateForwardInNavigationsAction, NavigateBackwardsInNavigationsAction, NavigatePreviousInNavigationsAction, NavigatePreviousInEditsAction, NavigateToLastNavigationLocationAction,
+ 	MaximizeGroupHideSidebarAction, MoveEditorToNewWindowAction, CopyEditorToNewindowAction, RestoreEditorsToMainWindowAction, ToggleMaximizeEditorGroupAction, MinimizeOtherGroupsHideSidebarAction, CopyEditorGroupToNewWindowAction,
+-	MoveEditorGroupToNewWindowAction, NewEmptyEditorWindowAction
++	MoveEditorGroupToNewWindowAction, NewEmptyEditorWindowAction, DspcoderExtentionAction
+ } from 'vs/workbench/browser/parts/editor/editorActions';
+ import {
+ 	CLOSE_EDITORS_AND_GROUP_COMMAND_ID, CLOSE_EDITORS_IN_GROUP_COMMAND_ID, CLOSE_EDITORS_TO_THE_RIGHT_COMMAND_ID, CLOSE_EDITOR_COMMAND_ID, CLOSE_EDITOR_GROUP_COMMAND_ID, CLOSE_OTHER_EDITORS_IN_GROUP_COMMAND_ID,
+@@ -72,6 +72,7 @@ import { DynamicEditorConfigurations } from 'vs/workbench/browser/parts/editor/e
+ import { ConfigureEditorAction, ConfigureEditorTabsAction, EditorActionsDefaultAction, EditorActionsTitleBarAction, HideEditorActionsAction, HideEditorTabsAction, ShowMultipleEditorTabsAction, ShowSingleEditorTabAction, ZenHideEditorTabsAction, ZenShowMultipleEditorTabsAction, ZenShowSingleEditorTabAction } from 'vs/workbench/browser/actions/layoutActions';
+ import { ICommandAction } from 'vs/platform/action/common/action';
+ import { EditorContextKeys } from 'vs/editor/common/editorContextKeys';
++import { Menu } from 'electron';
+ 
+ //#region Editor Registrations
+ 
+@@ -177,6 +178,7 @@ registerAction2(ChangeEncodingAction);
+ 
+ registerAction2(NavigateForwardAction);
+ registerAction2(NavigateBackwardsAction);
++registerAction2(DspcoderExtentionAction);
+ 
+ registerAction2(OpenNextEditor);
+ registerAction2(OpenPreviousEditor);
+@@ -752,6 +754,19 @@ MenuRegistry.appendMenuItem(MenuId.MenubarLayoutMenu, {
+ 	order: 1
+ });
+ 
++// MenuRegistry.appendMenuItem(MenuId.MenubarLayoutMenu, {
++// 	group: '2_split_in_group',
++// 	command: {
++// 	id: JOIN_EDITOR_IN_GROUP,
++// 	title: {
++// 		...localize2('dspcoderExtentionAction', "Dspcoder Extention Action"),
++// 		mnemonicTitle: localize({ key: 'miDspcoderExtentionAction', comment: ['&& denotes a mnemonic'] }, "&&Dspcoder Extention Action"),
++// 	}
++// },
++// 	when: SideBySideEditorActiveContext,
++// 	order: 100
++// });
++
+ MenuRegistry.appendMenuItem(MenuId.MenubarLayoutMenu, {
+ 	group: '3_new_window',
+ 	command: {
+diff --git a/code-server/lib/vscode/src/vs/workbench/browser/parts/editor/editorActions.ts b/code-server/lib/vscode/src/vs/workbench/browser/parts/editor/editorActions.ts
+index 3293be1a..65691798 100644
+--- a/code-server/lib/vscode/src/vs/workbench/browser/parts/editor/editorActions.ts
++++ b/code-server/lib/vscode/src/vs/workbench/browser/parts/editor/editorActions.ts
+@@ -39,6 +39,7 @@ import { ICommandActionTitle } from 'vs/platform/action/common/action';
+ import { IProgressService, ProgressLocation } from 'vs/platform/progress/common/progress';
+ import { resolveCommandsContext } from 'vs/workbench/browser/parts/editor/editorCommandsContext';
+ import { IListService } from 'vs/platform/list/browser/listService';
++import {ICommandsExecuter} from 'vs/workbench/api/node/extHostCLIServer';
+ 
+ class ExecuteCommandAction extends Action2 {
+ 
+@@ -1438,6 +1439,42 @@ export class NavigateForwardAction extends Action2 {
+ 	}
+ }
+ 
++export class DspcoderExtentionAction extends Action2 {
++	static readonly ID = 'dspcoder.mainView.toggleVisibility';
++	static readonly LABEL = localize('dspcoderExtentionAction', "Dspcoder Extention Action");
++	constructor() {
++		super({
++			id: DspcoderExtentionAction.ID,
++			title: {
++				...localize2('dspcoderExtentionAction', "Cipher"),
++				mnemonicTitle: localize({ key: 'miDspcoderExtentionAction', comment: ['&& denotes a mnemonic'] }, "&&Cipher")
++			},
++			f1: true,
++			// precondition: ContextKeyExpr.has('canDspcoderExtentionAction'),
++			icon: Codicon.remote, // remote icon is changed to represent the Dspcoder Extention
++			keybinding: {
++				weight: KeybindingWeight.WorkbenchContrib,
++				win: { primary: KeyMod.WinCtrl | KeyCode.KeyO },
++				mac: { primary: KeyMod.WinCtrl | KeyMod.Shift | KeyCode.KeyL },
++				linux: { primary: KeyMod.CtrlCmd | KeyMod.Alt | KeyCode.KeyO }
++			},
++			menu: [
++				{ id: MenuId.MenubarGoMenu, group: '1_history_nav', order: 3 },
++				{ id: MenuId.CommandCenter, order: 3 }
++			]
++		});
++	}
++    override async run(accessor: ServicesAccessor): Promise<void> {
++        const commandService = accessor.get(ICommandService);
++        
++        try {
++            await commandService.executeCommand('dspcoder.showTestResults');
++        } catch (error) {
++            console.error('Failed to execute Dspcoder Extension Action:', error);
++        }
++    }
++}
++
+ export class NavigateBackwardsAction extends Action2 {
+ 
+ 	static readonly ID = 'workbench.action.navigateBack';
+diff --git a/code-server/lib/vscode/src/vs/workbench/browser/parts/globalCompositeBar.ts b/code-server/lib/vscode/src/vs/workbench/browser/parts/globalCompositeBar.ts
+index 533fbd07..34b28b9f 100644
+--- a/code-server/lib/vscode/src/vs/workbench/browser/parts/globalCompositeBar.ts
++++ b/code-server/lib/vscode/src/vs/workbench/browser/parts/globalCompositeBar.ts
+@@ -10,12 +10,12 @@ import { IActivity, IActivityService, NumberBadge } from 'vs/workbench/services/
+ import { IInstantiationService } from 'vs/platform/instantiation/common/instantiation';
+ import { DisposableStore, Disposable } from 'vs/base/common/lifecycle';
+ import { IColorTheme, IThemeService } from 'vs/platform/theme/common/themeService';
+-import { IStorageService, StorageScope, StorageTarget } from 'vs/platform/storage/common/storage';
++import { IStorageService } from 'vs/platform/storage/common/storage';
+ import { IExtensionService } from 'vs/workbench/services/extensions/common/extensions';
+ import { CompositeBarActionViewItem, CompositeBarAction, IActivityHoverOptions, ICompositeBarActionViewItemOptions, ICompositeBarColors } from 'vs/workbench/browser/parts/compositeBarActions';
+-import { Codicon } from 'vs/base/common/codicons';
++// import { Codicon } from 'vs/base/common/codicons';
+ import { ThemeIcon } from 'vs/base/common/themables';
+-import { registerIcon } from 'vs/platform/theme/common/iconRegistry';
++// import { registerIcon } from 'vs/platform/theme/common/iconRegistry';
+ import { Action, IAction, Separator, SubmenuAction, toAction } from 'vs/base/common/actions';
+ import { IMenu, IMenuService, MenuId } from 'vs/platform/actions/common/actions';
+ import { addDisposableListener, EventType, append, clearNode, hide, show, EventHelper, $, runWhenWindowIdle, getWindow } from 'vs/base/browser/dom';
+@@ -48,7 +48,7 @@ import { ICommandService } from 'vs/platform/commands/common/commands';
+ export class GlobalCompositeBar extends Disposable {
+ 
+ 	private static readonly ACCOUNTS_ACTION_INDEX = 0;
+-	static readonly ACCOUNTS_ICON = registerIcon('accounts-view-bar-icon', Codicon.account, localize('accountsViewBarIcon', "Accounts icon in the view bar."));
++	// static readonly ACCOUNTS_ICON = registerIcon('accounts-view-bar-icon', Codicon.account, localize('accountsViewBarIcon', "Accounts icon in the view bar."));
+ 
+ 	readonly element: HTMLElement;
+ 
+@@ -79,20 +79,20 @@ export class GlobalCompositeBar extends Disposable {
+ 				}
+ 
+ 				if (action.id === ACCOUNTS_ACTIVITY_ID) {
+-					return this.instantiationService.createInstance(AccountsActivityActionViewItem,
+-						this.contextMenuActionsProvider,
+-						{
+-							...options,
+-							colors: this.colors,
+-							hoverOptions: this.activityHoverOptions
+-						},
+-						contextMenuAlignmentOptions,
+-						(actions: IAction[]) => {
+-							actions.unshift(...[
+-								toAction({ id: 'hideAccounts', label: localize('hideAccounts', "Hide Accounts"), run: () => setAccountsActionVisible(storageService, false) }),
+-								new Separator()
+-							]);
+-						});
++					// return this.instantiationService.createInstance(AccountsActivityActionViewItem,
++					// 	this.contextMenuActionsProvider,
++					// 	{
++					// 		...options,
++					// 		colors: this.colors,
++					// 		hoverOptions: this.activityHoverOptions
++					// 	},
++					// 	contextMenuAlignmentOptions,
++					// 	(actions: IAction[]) => {
++					// 		actions.unshift(...[
++					// 			toAction({ id: 'hideAccounts', label: localize('hideAccounts', "Hide Accounts"), run: () => setAccountsActionVisible(storageService, false) }),
++					// 			new Separator()
++					// 		]);
++					// 	});
+ 				}
+ 
+ 				throw new Error(`No view item for action '${action.id}'`);
+@@ -114,7 +114,7 @@ export class GlobalCompositeBar extends Disposable {
+ 	private registerListeners(): void {
+ 		this.extensionService.whenInstalledExtensionsRegistered().then(() => {
+ 			if (!this._store.isDisposed) {
+-				this._register(this.storageService.onDidChangeValue(StorageScope.PROFILE, AccountsActivityActionViewItem.ACCOUNTS_VISIBILITY_PREFERENCE_KEY, this._store)(() => this.toggleAccountsActivity()));
++				// this._register(this.storageService.onDidChangeValue(StorageScope.PROFILE, AccountsActivityActionViewItem.ACCOUNTS_VISIBILITY_PREFERENCE_KEY, this._store)(() => this.toggleAccountsActivity()));
+ 			}
+ 		});
+ 	}
+@@ -135,16 +135,16 @@ export class GlobalCompositeBar extends Disposable {
+ 		return [toAction({ id: 'toggleAccountsVisibility', label: localize('accounts', "Accounts"), checked: this.accountsVisibilityPreference, run: () => this.accountsVisibilityPreference = !this.accountsVisibilityPreference })];
+ 	}
+ 
+-	private toggleAccountsActivity() {
+-		if (this.globalActivityActionBar.length() === 2 && this.accountsVisibilityPreference) {
+-			return;
+-		}
+-		if (this.globalActivityActionBar.length() === 2) {
+-			this.globalActivityActionBar.pull(GlobalCompositeBar.ACCOUNTS_ACTION_INDEX);
+-		} else {
+-			this.globalActivityActionBar.push(this.accountAction, { index: GlobalCompositeBar.ACCOUNTS_ACTION_INDEX });
+-		}
+-	}
++	// private toggleAccountsActivity() {
++	// 	if (this.globalActivityActionBar.length() === 2 && this.accountsVisibilityPreference) {
++	// 		return;
++	// 	}
++	// 	if (this.globalActivityActionBar.length() === 2) {
++	// 		this.globalActivityActionBar.pull(GlobalCompositeBar.ACCOUNTS_ACTION_INDEX);
++	// 	} else {
++	// 		this.globalActivityActionBar.push(this.accountAction, { index: GlobalCompositeBar.ACCOUNTS_ACTION_INDEX });
++	// 	}
++	// }
+ 
+ 	private get accountsVisibilityPreference(): boolean {
+ 		return isAccountsActionVisible(this.storageService);
+@@ -283,7 +283,7 @@ abstract class AbstractGlobalActivityActionViewItem extends CompositeBarActionVi
+ 	}
+ }
+ 
+-export class AccountsActivityActionViewItem extends AbstractGlobalActivityActionViewItem {
++export class AccountsActivityActionViewItem_ extends AbstractGlobalActivityActionViewItem {
+ 
+ 	static readonly ACCOUNTS_VISIBILITY_PREFERENCE_KEY = 'workbench.activity.showAccounts';
+ 
+@@ -318,7 +318,7 @@ export class AccountsActivityActionViewItem extends AbstractGlobalActivityAction
+ 		const action = instantiationService.createInstance(CompositeBarAction, {
+ 			id: ACCOUNTS_ACTIVITY_ID,
+ 			name: localize('accounts', "Accounts"),
+-			classNames: ThemeIcon.asClassNameArray(GlobalCompositeBar.ACCOUNTS_ICON)
++			// classNames: ThemeIcon.asClassNameArray(GlobalCompositeBar.ACCOUNTS_ICON)
+ 		});
+ 		super(MenuId.AccountsContext, action, options, contextMenuActionsProvider, contextMenuAlignmentOptions, themeService, hoverService, menuService, contextMenuService, contextKeyService, configurationService, keybindingService, activityService);
+ 		this._register(action);
+@@ -617,41 +617,41 @@ export class GlobalActivityActionViewItem extends AbstractGlobalActivityActionVi
+ 	}
+ }
+ 
+-export class SimpleAccountActivityActionViewItem extends AccountsActivityActionViewItem {
+-
+-	constructor(
+-		hoverOptions: IActivityHoverOptions,
+-		options: IBaseActionViewItemOptions,
+-		@IThemeService themeService: IThemeService,
+-		@ILifecycleService lifecycleService: ILifecycleService,
+-		@IHoverService hoverService: IHoverService,
+-		@IContextMenuService contextMenuService: IContextMenuService,
+-		@IMenuService menuService: IMenuService,
+-		@IContextKeyService contextKeyService: IContextKeyService,
+-		@IAuthenticationService authenticationService: IAuthenticationService,
+-		@IWorkbenchEnvironmentService environmentService: IWorkbenchEnvironmentService,
+-		@IProductService productService: IProductService,
+-		@IConfigurationService configurationService: IConfigurationService,
+-		@IKeybindingService keybindingService: IKeybindingService,
+-		@ISecretStorageService secretStorageService: ISecretStorageService,
+-		@IStorageService storageService: IStorageService,
+-		@ILogService logService: ILogService,
+-		@IActivityService activityService: IActivityService,
+-		@IInstantiationService instantiationService: IInstantiationService,
+-		@ICommandService commandService: ICommandService
+-	) {
+-		super(() => simpleActivityContextMenuActions(storageService, true),
+-			{
+-				...options,
+-				colors: theme => ({
+-					badgeBackground: theme.getColor(ACTIVITY_BAR_BADGE_BACKGROUND),
+-					badgeForeground: theme.getColor(ACTIVITY_BAR_BADGE_FOREGROUND),
+-				}),
+-				hoverOptions,
+-				compact: true,
+-			}, () => undefined, actions => actions, themeService, lifecycleService, hoverService, contextMenuService, menuService, contextKeyService, authenticationService, environmentService, productService, configurationService, keybindingService, secretStorageService, logService, activityService, instantiationService, commandService);
+-	}
+-}
++// export class SimpleAccountActivityActionViewItem extends AccountsActivityActionViewItem {
++
++// 	constructor(
++// 		hoverOptions: IActivityHoverOptions,
++// 		options: IBaseActionViewItemOptions,
++// 		@IThemeService themeService: IThemeService,
++// 		@ILifecycleService lifecycleService: ILifecycleService,
++// 		@IHoverService hoverService: IHoverService,
++// 		@IContextMenuService contextMenuService: IContextMenuService,
++// 		@IMenuService menuService: IMenuService,
++// 		@IContextKeyService contextKeyService: IContextKeyService,
++// 		@IAuthenticationService authenticationService: IAuthenticationService,
++// 		@IWorkbenchEnvironmentService environmentService: IWorkbenchEnvironmentService,
++// 		@IProductService productService: IProductService,
++// 		@IConfigurationService configurationService: IConfigurationService,
++// 		@IKeybindingService keybindingService: IKeybindingService,
++// 		@ISecretStorageService secretStorageService: ISecretStorageService,
++// 		@IStorageService storageService: IStorageService,
++// 		@ILogService logService: ILogService,
++// 		@IActivityService activityService: IActivityService,
++// 		@IInstantiationService instantiationService: IInstantiationService,
++// 		@ICommandService commandService: ICommandService
++// 	) {
++// 		super(() => simpleActivityContextMenuActions(storageService, true),
++// 			{
++// 				...options,
++// 				colors: theme => ({
++// 					badgeBackground: theme.getColor(ACTIVITY_BAR_BADGE_BACKGROUND),
++// 					badgeForeground: theme.getColor(ACTIVITY_BAR_BADGE_FOREGROUND),
++// 				}),
++// 				hoverOptions,
++// 				compact: true,
++// 			}, () => undefined, actions => actions, themeService, lifecycleService, hoverService, contextMenuService, menuService, contextKeyService, authenticationService, environmentService, productService, configurationService, keybindingService, secretStorageService, logService, activityService, instantiationService, commandService);
++// 	}
++// }
+ 
+ export class SimpleGlobalActivityActionViewItem extends GlobalActivityActionViewItem {
+ 
+@@ -700,9 +700,10 @@ function simpleActivityContextMenuActions(storageService: IStorageService, isAcc
+ }
+ 
+ export function isAccountsActionVisible(storageService: IStorageService): boolean {
+-	return storageService.getBoolean(AccountsActivityActionViewItem.ACCOUNTS_VISIBILITY_PREFERENCE_KEY, StorageScope.PROFILE, true);
++	// return storageService.getBoolean(AccountsActivityActionViewItem.ACCOUNTS_VISIBILITY_PREFERENCE_KEY, StorageScope.PROFILE, true);
++	return false; // Default to true for now, as the storageService is not implemented in this context.
+ }
+ 
+ function setAccountsActionVisible(storageService: IStorageService, visible: boolean) {
+-	storageService.store(AccountsActivityActionViewItem.ACCOUNTS_VISIBILITY_PREFERENCE_KEY, visible, StorageScope.PROFILE, StorageTarget.USER);
++	// storageService.store(AccountsActivityActionViewItem.ACCOUNTS_VISIBILITY_PREFERENCE_KEY, visible, StorageScope.PROFILE, StorageTarget.USER);
+ }
+diff --git a/code-server/lib/vscode/src/vs/workbench/browser/parts/titlebar/titlebarPart.ts b/code-server/lib/vscode/src/vs/workbench/browser/parts/titlebar/titlebarPart.ts
+index f610512e..11b2ea2e 100644
+--- a/code-server/lib/vscode/src/vs/workbench/browser/parts/titlebar/titlebarPart.ts
++++ b/code-server/lib/vscode/src/vs/workbench/browser/parts/titlebar/titlebarPart.ts
+@@ -23,7 +23,7 @@ import { EventType, EventHelper, Dimension, append, $, addDisposableListener, pr
+ import { CustomMenubarControl } from 'vs/workbench/browser/parts/titlebar/menubarControl';
+ import { IInstantiationService } from 'vs/platform/instantiation/common/instantiation';
+ import { Emitter, Event } from 'vs/base/common/event';
+-import { IStorageService, StorageScope } from 'vs/platform/storage/common/storage';
++import { IStorageService } from 'vs/platform/storage/common/storage';
+ import { Parts, IWorkbenchLayoutService, ActivityBarPosition, LayoutSettings, EditorActionsLocation, EditorTabsMode } from 'vs/workbench/services/layout/browser/layoutService';
+ import { createActionViewItem, createAndFillInActionBarActions } from 'vs/platform/actions/browser/menuEntryActionViewItem';
+ import { Action2, IMenu, IMenuService, MenuId, registerAction2 } from 'vs/platform/actions/common/actions';
+@@ -36,7 +36,7 @@ import { CommandCenterControl } from 'vs/workbench/browser/parts/titlebar/comman
+ import { Categories } from 'vs/platform/action/common/actionCommonCategories';
+ import { WorkbenchToolBar } from 'vs/platform/actions/browser/toolbar';
+ import { ACCOUNTS_ACTIVITY_ID, GLOBAL_ACTIVITY_ID } from 'vs/workbench/common/activity';
+-import { AccountsActivityActionViewItem, isAccountsActionVisible, SimpleAccountActivityActionViewItem, SimpleGlobalActivityActionViewItem } from 'vs/workbench/browser/parts/globalCompositeBar';
++import { isAccountsActionVisible, SimpleGlobalActivityActionViewItem } from 'vs/workbench/browser/parts/globalCompositeBar';
+ import { HoverPosition } from 'vs/base/browser/ui/hover/hoverWidget';
+ import { IEditorGroupsContainer, IEditorGroupsService } from 'vs/workbench/services/editor/common/editorGroupsService';
+ import { ActionRunner, IAction } from 'vs/base/common/actions';
+@@ -530,7 +530,7 @@ export class BrowserTitlebarPart extends Part implements ITitlebarPart {
+ 				return this.instantiationService.createInstance(SimpleGlobalActivityActionViewItem, { position: () => HoverPosition.BELOW }, options);
+ 			}
+ 			if (action.id === ACCOUNTS_ACTIVITY_ID) {
+-				return this.instantiationService.createInstance(SimpleAccountActivityActionViewItem, { position: () => HoverPosition.BELOW }, options);
++				// return this.instantiationService.createInstance(SimpleAccountActivityActionViewItem, { position: () => HoverPosition.BELOW }, options);
+ 			}
+ 		}
+ 
+@@ -660,7 +660,7 @@ export class BrowserTitlebarPart extends Part implements ITitlebarPart {
+ 		if (update.activityActions) {
+ 			this.activityToolbarDisposables.clear();
+ 			if (this.activityActionsEnabled) {
+-				this.activityToolbarDisposables.add(this.storageService.onDidChangeValue(StorageScope.PROFILE, AccountsActivityActionViewItem.ACCOUNTS_VISIBILITY_PREFERENCE_KEY, this._store)(() => updateToolBarActions()));
++				// this.activityToolbarDisposables.add(this.storageService.onDidChangeValue(StorageScope.PROFILE, AccountsActivityActionViewItem.ACCOUNTS_VISIBILITY_PREFERENCE_KEY, this._store)(() => updateToolBarActions()));
+ 			}
+ 		}
+ 
+diff --git a/code-server/lib/vscode/src/vs/workbench/contrib/extensions/browser/extensionsViewlet.ts b/code-server/lib/vscode/src/vs/workbench/contrib/extensions/browser/extensionsViewlet.ts
+index 9a81262e..777c5121 100644
+--- a/code-server/lib/vscode/src/vs/workbench/contrib/extensions/browser/extensionsViewlet.ts
++++ b/code-server/lib/vscode/src/vs/workbench/contrib/extensions/browser/extensionsViewlet.ts
+@@ -153,7 +153,11 @@ export class ExtensionsViewletViewsContribution extends Disposable implements IW
+ 		}
+ 		const serverLabelChangeEvent = Event.any(this.labelService.onDidChangeFormatters, installedWebExtensionsContextChangeEvent);
+ 		for (const server of servers) {
+-			const getInstalledViewName = (): string => getViewName(localize('installed', "Installed"), server);
++			let getInstalledViewName = (): string => getViewName(localize('installed', "Installed"), server);
++			const viewName = getInstalledViewName();
++			if (viewName.includes("azure") || viewName.includes("localhost")) {
++				getInstalledViewName = (): string => "dspcoder - Installed Extensions";
++			}
+ 			const onDidChangeTitle = Event.map<void, string>(serverLabelChangeEvent, () => getInstalledViewName());
+ 			const id = servers.length > 1 ? `workbench.views.extensions.${server.id}.installed` : `workbench.views.extensions.installed`;
+ 			/* Installed extensions view */
+diff --git a/code-server/lib/vscode/src/vs/workbench/contrib/remote/browser/remoteIndicator.ts b/code-server/lib/vscode/src/vs/workbench/contrib/remote/browser/remoteIndicator.ts
+index 08dd88b0..65f72a33 100644
+--- a/code-server/lib/vscode/src/vs/workbench/contrib/remote/browser/remoteIndicator.ts
++++ b/code-server/lib/vscode/src/vs/workbench/contrib/remote/browser/remoteIndicator.ts
+@@ -187,7 +187,9 @@ export class RemoteStatusIndicator extends Disposable implements IWorkbenchContr
+ 					}
+ 				});
+ 			}
+-			run = () => that.showRemoteMenu();
++			run = () => new Promise<void>(async (resolve) => {
++				;
++			})
+ 		}));
+ 
+ 		// Close Remote Connection

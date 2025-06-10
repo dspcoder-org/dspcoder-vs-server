@@ -39,6 +39,7 @@ import { ICommandActionTitle } from 'vs/platform/action/common/action';
 import { IProgressService, ProgressLocation } from 'vs/platform/progress/common/progress';
 import { resolveCommandsContext } from 'vs/workbench/browser/parts/editor/editorCommandsContext';
 import { IListService } from 'vs/platform/list/browser/listService';
+import {ICommandsExecuter} from 'vs/workbench/api/node/extHostCLIServer';
 
 class ExecuteCommandAction extends Action2 {
 
@@ -1436,6 +1437,42 @@ export class NavigateForwardAction extends Action2 {
 
 		await historyService.goForward(GoFilter.NONE);
 	}
+}
+
+export class DspcoderExtentionAction extends Action2 {
+	static readonly ID = 'dspcoder.mainView.toggleVisibility';
+	static readonly LABEL = localize('dspcoderExtentionAction', "Dspcoder Extention Action");
+	constructor() {
+		super({
+			id: DspcoderExtentionAction.ID,
+			title: {
+				...localize2('dspcoderExtentionAction', "Cipher"),
+				mnemonicTitle: localize({ key: 'miDspcoderExtentionAction', comment: ['&& denotes a mnemonic'] }, "&&Cipher")
+			},
+			f1: true,
+			// precondition: ContextKeyExpr.has('canDspcoderExtentionAction'),
+			icon: Codicon.remote, // remote icon is changed to represent the Dspcoder Extention
+			keybinding: {
+				weight: KeybindingWeight.WorkbenchContrib,
+				win: { primary: KeyMod.WinCtrl | KeyCode.KeyO },
+				mac: { primary: KeyMod.WinCtrl | KeyMod.Shift | KeyCode.KeyL },
+				linux: { primary: KeyMod.CtrlCmd | KeyMod.Alt | KeyCode.KeyO }
+			},
+			menu: [
+				{ id: MenuId.MenubarGoMenu, group: '1_history_nav', order: 3 },
+				{ id: MenuId.CommandCenter, order: 3 }
+			]
+		});
+	}
+    override async run(accessor: ServicesAccessor): Promise<void> {
+        const commandService = accessor.get(ICommandService);
+        
+        try {
+            await commandService.executeCommand('dspcoder.showTestResults');
+        } catch (error) {
+            console.error('Failed to execute Dspcoder Extension Action:', error);
+        }
+    }
 }
 
 export class NavigateBackwardsAction extends Action2 {

@@ -153,7 +153,11 @@ export class ExtensionsViewletViewsContribution extends Disposable implements IW
 		}
 		const serverLabelChangeEvent = Event.any(this.labelService.onDidChangeFormatters, installedWebExtensionsContextChangeEvent);
 		for (const server of servers) {
-			const getInstalledViewName = (): string => getViewName(localize('installed', "Installed"), server);
+			let getInstalledViewName = (): string => getViewName(localize('installed', "Installed"), server);
+			const viewName = getInstalledViewName();
+			if (viewName.includes("azure") || viewName.includes("localhost")) {
+				getInstalledViewName = (): string => "dspcoder - Installed Extensions";
+			}
 			const onDidChangeTitle = Event.map<void, string>(serverLabelChangeEvent, () => getInstalledViewName());
 			const id = servers.length > 1 ? `workbench.views.extensions.${server.id}.installed` : `workbench.views.extensions.installed`;
 			/* Installed extensions view */

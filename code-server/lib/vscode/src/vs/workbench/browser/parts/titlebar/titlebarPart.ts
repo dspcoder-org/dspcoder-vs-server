@@ -23,7 +23,7 @@ import { EventType, EventHelper, Dimension, append, $, addDisposableListener, pr
 import { CustomMenubarControl } from 'vs/workbench/browser/parts/titlebar/menubarControl';
 import { IInstantiationService } from 'vs/platform/instantiation/common/instantiation';
 import { Emitter, Event } from 'vs/base/common/event';
-import { IStorageService, StorageScope } from 'vs/platform/storage/common/storage';
+import { IStorageService } from 'vs/platform/storage/common/storage';
 import { Parts, IWorkbenchLayoutService, ActivityBarPosition, LayoutSettings, EditorActionsLocation, EditorTabsMode } from 'vs/workbench/services/layout/browser/layoutService';
 import { createActionViewItem, createAndFillInActionBarActions } from 'vs/platform/actions/browser/menuEntryActionViewItem';
 import { Action2, IMenu, IMenuService, MenuId, registerAction2 } from 'vs/platform/actions/common/actions';
@@ -36,7 +36,7 @@ import { CommandCenterControl } from 'vs/workbench/browser/parts/titlebar/comman
 import { Categories } from 'vs/platform/action/common/actionCommonCategories';
 import { WorkbenchToolBar } from 'vs/platform/actions/browser/toolbar';
 import { ACCOUNTS_ACTIVITY_ID, GLOBAL_ACTIVITY_ID } from 'vs/workbench/common/activity';
-import { AccountsActivityActionViewItem, isAccountsActionVisible, SimpleAccountActivityActionViewItem, SimpleGlobalActivityActionViewItem } from 'vs/workbench/browser/parts/globalCompositeBar';
+import { isAccountsActionVisible, SimpleGlobalActivityActionViewItem } from 'vs/workbench/browser/parts/globalCompositeBar';
 import { HoverPosition } from 'vs/base/browser/ui/hover/hoverWidget';
 import { IEditorGroupsContainer, IEditorGroupsService } from 'vs/workbench/services/editor/common/editorGroupsService';
 import { ActionRunner, IAction } from 'vs/base/common/actions';
@@ -530,7 +530,7 @@ export class BrowserTitlebarPart extends Part implements ITitlebarPart {
 				return this.instantiationService.createInstance(SimpleGlobalActivityActionViewItem, { position: () => HoverPosition.BELOW }, options);
 			}
 			if (action.id === ACCOUNTS_ACTIVITY_ID) {
-				return this.instantiationService.createInstance(SimpleAccountActivityActionViewItem, { position: () => HoverPosition.BELOW }, options);
+				// return this.instantiationService.createInstance(SimpleAccountActivityActionViewItem, { position: () => HoverPosition.BELOW }, options);
 			}
 		}
 
@@ -660,7 +660,7 @@ export class BrowserTitlebarPart extends Part implements ITitlebarPart {
 		if (update.activityActions) {
 			this.activityToolbarDisposables.clear();
 			if (this.activityActionsEnabled) {
-				this.activityToolbarDisposables.add(this.storageService.onDidChangeValue(StorageScope.PROFILE, AccountsActivityActionViewItem.ACCOUNTS_VISIBILITY_PREFERENCE_KEY, this._store)(() => updateToolBarActions()));
+				// this.activityToolbarDisposables.add(this.storageService.onDidChangeValue(StorageScope.PROFILE, AccountsActivityActionViewItem.ACCOUNTS_VISIBILITY_PREFERENCE_KEY, this._store)(() => updateToolBarActions()));
 			}
 		}
 

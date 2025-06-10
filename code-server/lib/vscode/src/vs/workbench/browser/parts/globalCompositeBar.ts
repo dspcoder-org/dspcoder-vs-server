@@ -10,12 +10,12 @@ import { IActivity, IActivityService, NumberBadge } from 'vs/workbench/services/
 import { IInstantiationService } from 'vs/platform/instantiation/common/instantiation';
 import { DisposableStore, Disposable } from 'vs/base/common/lifecycle';
 import { IColorTheme, IThemeService } from 'vs/platform/theme/common/themeService';
-import { IStorageService, StorageScope, StorageTarget } from 'vs/platform/storage/common/storage';
+import { IStorageService } from 'vs/platform/storage/common/storage';
 import { IExtensionService } from 'vs/workbench/services/extensions/common/extensions';
 import { CompositeBarActionViewItem, CompositeBarAction, IActivityHoverOptions, ICompositeBarActionViewItemOptions, ICompositeBarColors } from 'vs/workbench/browser/parts/compositeBarActions';
-import { Codicon } from 'vs/base/common/codicons';
+// import { Codicon } from 'vs/base/common/codicons';
 import { ThemeIcon } from 'vs/base/common/themables';
-import { registerIcon } from 'vs/platform/theme/common/iconRegistry';
+// import { registerIcon } from 'vs/platform/theme/common/iconRegistry';
 import { Action, IAction, Separator, SubmenuAction, toAction } from 'vs/base/common/actions';
 import { IMenu, IMenuService, MenuId } from 'vs/platform/actions/common/actions';
 import { addDisposableListener, EventType, append, clearNode, hide, show, EventHelper, $, runWhenWindowIdle, getWindow } from 'vs/base/browser/dom';
@@ -48,7 +48,7 @@ import { ICommandService } from 'vs/platform/commands/common/commands';
 export class GlobalCompositeBar extends Disposable {
 
 	private static readonly ACCOUNTS_ACTION_INDEX = 0;
-	static readonly ACCOUNTS_ICON = registerIcon('accounts-view-bar-icon', Codicon.account, localize('accountsViewBarIcon', "Accounts icon in the view bar."));
+	// static readonly ACCOUNTS_ICON = registerIcon('accounts-view-bar-icon', Codicon.account, localize('accountsViewBarIcon', "Accounts icon in the view bar."));
 
 	readonly element: HTMLElement;
 
@@ -79,20 +79,20 @@ export class GlobalCompositeBar extends Disposable {
 				}
 
 				if (action.id === ACCOUNTS_ACTIVITY_ID) {
-					return this.instantiationService.createInstance(AccountsActivityActionViewItem,
-						this.contextMenuActionsProvider,
-						{
-							...options,
-							colors: this.colors,
-							hoverOptions: this.activityHoverOptions
-						},
-						contextMenuAlignmentOptions,
-						(actions: IAction[]) => {
-							actions.unshift(...[
-								toAction({ id: 'hideAccounts', label: localize('hideAccounts', "Hide Accounts"), run: () => setAccountsActionVisible(storageService, false) }),
-								new Separator()
-							]);
-						});
+					// return this.instantiationService.createInstance(AccountsActivityActionViewItem,
+					// 	this.contextMenuActionsProvider,
+					// 	{
+					// 		...options,
+					// 		colors: this.colors,
+					// 		hoverOptions: this.activityHoverOptions
+					// 	},
+					// 	contextMenuAlignmentOptions,
+					// 	(actions: IAction[]) => {
+					// 		actions.unshift(...[
+					// 			toAction({ id: 'hideAccounts', label: localize('hideAccounts', "Hide Accounts"), run: () => setAccountsActionVisible(storageService, false) }),
+					// 			new Separator()
+					// 		]);
+					// 	});
 				}
 
 				throw new Error(`No view item for action '${action.id}'`);
@@ -114,7 +114,7 @@ export class GlobalCompositeBar extends Disposable {
 	private registerListeners(): void {
 		this.extensionService.whenInstalledExtensionsRegistered().then(() => {
 			if (!this._store.isDisposed) {
-				this._register(this.storageService.onDidChangeValue(StorageScope.PROFILE, AccountsActivityActionViewItem.ACCOUNTS_VISIBILITY_PREFERENCE_KEY, this._store)(() => this.toggleAccountsActivity()));
+				// this._register(this.storageService.onDidChangeValue(StorageScope.PROFILE, AccountsActivityActionViewItem.ACCOUNTS_VISIBILITY_PREFERENCE_KEY, this._store)(() => this.toggleAccountsActivity()));
 			}
 		});
 	}
@@ -135,16 +135,16 @@ export class GlobalCompositeBar extends Disposable {
 		return [toAction({ id: 'toggleAccountsVisibility', label: localize('accounts', "Accounts"), checked: this.accountsVisibilityPreference, run: () => this.accountsVisibilityPreference = !this.accountsVisibilityPreference })];
 	}
 
-	private toggleAccountsActivity() {
-		if (this.globalActivityActionBar.length() === 2 && this.accountsVisibilityPreference) {
-			return;
-		}
-		if (this.globalActivityActionBar.length() === 2) {
-			this.globalActivityActionBar.pull(GlobalCompositeBar.ACCOUNTS_ACTION_INDEX);
-		} else {
-			this.globalActivityActionBar.push(this.accountAction, { index: GlobalCompositeBar.ACCOUNTS_ACTION_INDEX });
-		}
-	}
+	// private toggleAccountsActivity() {
+	// 	if (this.globalActivityActionBar.length() === 2 && this.accountsVisibilityPreference) {
+	// 		return;
+	// 	}
+	// 	if (this.globalActivityActionBar.length() === 2) {
+	// 		this.globalActivityActionBar.pull(GlobalCompositeBar.ACCOUNTS_ACTION_INDEX);
+	// 	} else {
+	// 		this.globalActivityActionBar.push(this.accountAction, { index: GlobalCompositeBar.ACCOUNTS_ACTION_INDEX });
+	// 	}
+	// }
 
 	private get accountsVisibilityPreference(): boolean {
 		return isAccountsActionVisible(this.storageService);
@@ -283,7 +283,7 @@ abstract class AbstractGlobalActivityActionViewItem extends CompositeBarActionVi
 	}
 }
 
-export class AccountsActivityActionViewItem extends AbstractGlobalActivityActionViewItem {
+export class AccountsActivityActionViewItem_ extends AbstractGlobalActivityActionViewItem {
 
 	static readonly ACCOUNTS_VISIBILITY_PREFERENCE_KEY = 'workbench.activity.showAccounts';
 
@@ -318,7 +318,7 @@ export class AccountsActivityActionViewItem extends AbstractGlobalActivityAction
 		const action = instantiationService.createInstance(CompositeBarAction, {
 			id: ACCOUNTS_ACTIVITY_ID,
 			name: localize('accounts', "Accounts"),
-			classNames: ThemeIcon.asClassNameArray(GlobalCompositeBar.ACCOUNTS_ICON)
+			// classNames: ThemeIcon.asClassNameArray(GlobalCompositeBar.ACCOUNTS_ICON)
 		});
 		super(MenuId.AccountsContext, action, options, contextMenuActionsProvider, contextMenuAlignmentOptions, themeService, hoverService, menuService, contextMenuService, contextKeyService, configurationService, keybindingService, activityService);
 		this._register(action);
@@ -617,41 +617,41 @@ export class GlobalActivityActionViewItem extends AbstractGlobalActivityActionVi
 	}
 }
 
-export class SimpleAccountActivityActionViewItem extends AccountsActivityActionViewItem {
+// export class SimpleAccountActivityActionViewItem extends AccountsActivityActionViewItem {
 
-	constructor(
-		hoverOptions: IActivityHoverOptions,
-		options: IBaseActionViewItemOptions,
-		@IThemeService themeService: IThemeService,
-		@ILifecycleService lifecycleService: ILifecycleService,
-		@IHoverService hoverService: IHoverService,
-		@IContextMenuService contextMenuService: IContextMenuService,
-		@IMenuService menuService: IMenuService,
-		@IContextKeyService contextKeyService: IContextKeyService,
-		@IAuthenticationService authenticationService: IAuthenticationService,
-		@IWorkbenchEnvironmentService environmentService: IWorkbenchEnvironmentService,
-		@IProductService productService: IProductService,
-		@IConfigurationService configurationService: IConfigurationService,
-		@IKeybindingService keybindingService: IKeybindingService,
-		@ISecretStorageService secretStorageService: ISecretStorageService,
-		@IStorageService storageService: IStorageService,
-		@ILogService logService: ILogService,
-		@IActivityService activityService: IActivityService,
-		@IInstantiationService instantiationService: IInstantiationService,
-		@ICommandService commandService: ICommandService
-	) {
-		super(() => simpleActivityContextMenuActions(storageService, true),
-			{
-				...options,
-				colors: theme => ({
-					badgeBackground: theme.getColor(ACTIVITY_BAR_BADGE_BACKGROUND),
-					badgeForeground: theme.getColor(ACTIVITY_BAR_BADGE_FOREGROUND),
-				}),
-				hoverOptions,
-				compact: true,
-			}, () => undefined, actions => actions, themeService, lifecycleService, hoverService, contextMenuService, menuService, contextKeyService, authenticationService, environmentService, productService, configurationService, keybindingService, secretStorageService, logService, activityService, instantiationService, commandService);
-	}
-}
+// 	constructor(
+// 		hoverOptions: IActivityHoverOptions,
+// 		options: IBaseActionViewItemOptions,
+// 		@IThemeService themeService: IThemeService,
+// 		@ILifecycleService lifecycleService: ILifecycleService,
+// 		@IHoverService hoverService: IHoverService,
+// 		@IContextMenuService contextMenuService: IContextMenuService,
+// 		@IMenuService menuService: IMenuService,
+// 		@IContextKeyService contextKeyService: IContextKeyService,
+// 		@IAuthenticationService authenticationService: IAuthenticationService,
+// 		@IWorkbenchEnvironmentService environmentService: IWorkbenchEnvironmentService,
+// 		@IProductService productService: IProductService,
+// 		@IConfigurationService configurationService: IConfigurationService,
+// 		@IKeybindingService keybindingService: IKeybindingService,
+// 		@ISecretStorageService secretStorageService: ISecretStorageService,
+// 		@IStorageService storageService: IStorageService,
+// 		@ILogService logService: ILogService,
+// 		@IActivityService activityService: IActivityService,
+// 		@IInstantiationService instantiationService: IInstantiationService,
+// 		@ICommandService commandService: ICommandService
+// 	) {
+// 		super(() => simpleActivityContextMenuActions(storageService, true),
+// 			{
+// 				...options,
+// 				colors: theme => ({
+// 					badgeBackground: theme.getColor(ACTIVITY_BAR_BADGE_BACKGROUND),
+// 					badgeForeground: theme.getColor(ACTIVITY_BAR_BADGE_FOREGROUND),
+// 				}),
+// 				hoverOptions,
+// 				compact: true,
+// 			}, () => undefined, actions => actions, themeService, lifecycleService, hoverService, contextMenuService, menuService, contextKeyService, authenticationService, environmentService, productService, configurationService, keybindingService, secretStorageService, logService, activityService, instantiationService, commandService);
+// 	}
+// }
 
 export class SimpleGlobalActivityActionViewItem extends GlobalActivityActionViewItem {
 
@@ -700,9 +700,10 @@ function simpleActivityContextMenuActions(storageService: IStorageService, isAcc
 }
 
 export function isAccountsActionVisible(storageService: IStorageService): boolean {
-	return storageService.getBoolean(AccountsActivityActionViewItem.ACCOUNTS_VISIBILITY_PREFERENCE_KEY, StorageScope.PROFILE, true);
+	// return storageService.getBoolean(AccountsActivityActionViewItem.ACCOUNTS_VISIBILITY_PREFERENCE_KEY, StorageScope.PROFILE, true);
+	return false; // Default to true for now, as the storageService is not implemented in this context.
 }
 
 function setAccountsActionVisible(storageService: IStorageService, visible: boolean) {
-	storageService.store(AccountsActivityActionViewItem.ACCOUNTS_VISIBILITY_PREFERENCE_KEY, visible, StorageScope.PROFILE, StorageTarget.USER);
+	// storageService.store(AccountsActivityActionViewItem.ACCOUNTS_VISIBILITY_PREFERENCE_KEY, visible, StorageScope.PROFILE, StorageTarget.USER);
 }

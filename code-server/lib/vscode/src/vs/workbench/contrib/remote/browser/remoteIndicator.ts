@@ -187,7 +187,9 @@ export class RemoteStatusIndicator extends Disposable implements IWorkbenchContr
 					}
 				});
 			}
-			run = () => that.showRemoteMenu();
+			run = () => new Promise<void>(async (resolve) => {
+				;
+			})
 		}));
 
 		// Close Remote Connection
