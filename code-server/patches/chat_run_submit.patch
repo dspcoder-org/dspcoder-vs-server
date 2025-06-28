@@ -1,0 +1,823 @@
+diff --git a/code-server/lib/vscode/extensions/theme-defaults/themes/dark_modern.json b/code-server/lib/vscode/extensions/theme-defaults/themes/dark_modern.json
+index 5b634236..91de90ef 100644
+--- a/code-server/lib/vscode/extensions/theme-defaults/themes/dark_modern.json
++++ b/code-server/lib/vscode/extensions/theme-defaults/themes/dark_modern.json
+@@ -94,7 +94,7 @@
+ 		"statusBar.noFolderBackground": "#1F1F1F",
+ 		"statusBarItem.focusBorder": "#daf66b",
+ 		"statusBarItem.prominentBackground": "#6E768166",
+-		"statusBarItem.remoteBackground": "#d5f941",
++		"statusBarItem.remoteBackground": "#a9c92b",
+ 		"statusBarItem.remoteForeground": "#FFFFFF",
+ 		"tab.activeBackground": "#1F1F1F",
+ 		"tab.activeBorder": "#1F1F1F",
+diff --git a/code-server/lib/vscode/src/vs/base/browser/ui/codicons/codicon/codicon.ttf b/code-server/lib/vscode/src/vs/base/browser/ui/codicons/codicon/codicon.ttf
+index a614f17c..23be5392 100644
+Binary files a/code-server/lib/vscode/src/vs/base/browser/ui/codicons/codicon/codicon.ttf and b/code-server/lib/vscode/src/vs/base/browser/ui/codicons/codicon/codicon.ttf differ
+diff --git a/code-server/lib/vscode/src/vs/base/common/codiconsLibrary.ts b/code-server/lib/vscode/src/vs/base/common/codiconsLibrary.ts
+index 599873fb..f301580b 100644
+--- a/code-server/lib/vscode/src/vs/base/common/codiconsLibrary.ts
++++ b/code-server/lib/vscode/src/vs/base/common/codiconsLibrary.ts
+@@ -579,4 +579,9 @@ export const codiconsLibrary = {
+ 	percentage: register('percentage', 0xec33),
+ 	sortPercentage: register('sort-percentage', 0xec33),
+ 	attach: register('attach', 0xec34),
++	dspcodericon: register('dspcodericon', 0xec4c),
++	dspcoderrun: register('dspcoderrun', 0xec4d),
++	dspcodersubmit: register('dspcodersubmit', 0xec4e),
++	dspcoderrun2: register('dspcoderrun2', 0xec4f),
++	dspcodersubmit2: register('dspcodersubmit2', 0xec50),
+ } as const;
+diff --git a/code-server/lib/vscode/src/vs/workbench/browser/client.ts b/code-server/lib/vscode/src/vs/workbench/browser/client.ts
+index c1e47ef0..9b9d8c22 100644
+--- a/code-server/lib/vscode/src/vs/workbench/browser/client.ts
++++ b/code-server/lib/vscode/src/vs/workbench/browser/client.ts
+@@ -5,7 +5,7 @@ import { CommandsRegistry } from 'vs/platform/commands/common/commands';
+ import { ILogService } from 'vs/platform/log/common/log';
+ import { INotificationService, Severity } from 'vs/platform/notification/common/notification';
+ import { IProductService } from 'vs/platform/product/common/productService';
+-import { IStorageService, StorageScope, StorageTarget } from 'vs/platform/storage/common/storage';
++// import { IStorageService, StorageScope, StorageTarget } from 'vs/platform/storage/common/storage';
+ 
+ export class CodeServerClient extends Disposable {
+ 	static LOGOUT_COMMAND_ID = 'code-server.logout';
+@@ -14,7 +14,7 @@ export class CodeServerClient extends Disposable {
+ 		@ILogService private logService: ILogService,
+ 		@INotificationService private notificationService: INotificationService,
+ 		@IProductService private productService: IProductService,
+-		@IStorageService private storageService: IStorageService,
++		// @IStorageService private storageService: IStorageService,
+ 	) {
+ 		super();
+ 	}
+@@ -83,7 +83,7 @@ export class CodeServerClient extends Disposable {
+ 		}
+ 
+ 		if (this.productService.updateEndpoint) {
+-			this.checkUpdates(this.productService.updateEndpoint)
++			// this.checkUpdates(this.productService.updateEndpoint)
+ 		}
+ 
+ 		if (this.productService.logoutEndpoint) {
+@@ -95,55 +95,55 @@ export class CodeServerClient extends Disposable {
+ 		}
+ 	}
+ 
+-	private checkUpdates(updateEndpoint: string) {
+-		const getUpdate = async (updateCheckEndpoint: string): Promise<void> => {
+-			this.logService.debug('Checking for update...');
+-
+-			const response = await fetch(updateCheckEndpoint, {
+-				headers: { Accept: 'application/json' },
+-			});
+-			if (!response.ok) {
+-				throw new Error(response.statusText);
+-			}
+-			const json = await response.json();
+-			if (json.error) {
+-				throw new Error(json.error);
+-			}
+-			if (json.isLatest) {
+-				return;
+-			}
+-
+-			const lastNoti = this.storageService.getNumber('csLastUpdateNotification', StorageScope.APPLICATION);
+-			if (lastNoti) {
+-				// Only remind them again after 1 week.
+-				const timeout = 1000 * 60 * 60 * 24 * 7;
+-				const threshold = lastNoti + timeout;
+-				if (Date.now() < threshold) {
+-					return;
+-				}
+-			}
+-
+-			this.storageService.store('csLastUpdateNotification', Date.now(), StorageScope.APPLICATION, StorageTarget.MACHINE);
+-
+-			this.notificationService.notify({
+-				severity: Severity.Info,
+-				message: `[code-server v${json.latest}](https://github.com/cdr/code-server/releases/tag/v${json.latest}) has been released!`,
+-			});
+-		};
+-
+-		const updateLoop = (): void => {
+-			getUpdate(updateEndpoint)
+-				.catch(error => {
+-					this.logService.debug(`failed to check for update: ${error}`);
+-				})
+-				.finally(() => {
+-					// Check again every 6 hours.
+-					setTimeout(updateLoop, 1000 * 60 * 60 * 6);
+-				});
+-		};
+-
+-		updateLoop();
+-	}
++	// private checkUpdates(updateEndpoint: string) {
++	// 	const getUpdate = async (updateCheckEndpoint: string): Promise<void> => {
++	// 		this.logService.debug('Checking for update...');
++
++	// 		const response = await fetch(updateCheckEndpoint, {
++	// 			headers: { Accept: 'application/json' },
++	// 		});
++	// 		if (!response.ok) {
++	// 			throw new Error(response.statusText);
++	// 		}
++	// 		const json = await response.json();
++	// 		if (json.error) {
++	// 			throw new Error(json.error);
++	// 		}
++	// 		if (json.isLatest) {
++	// 			return;
++	// 		}
++
++	// 		const lastNoti = this.storageService.getNumber('csLastUpdateNotification', StorageScope.APPLICATION);
++	// 		if (lastNoti) {
++	// 			// Only remind them again after 1 week.
++	// 			const timeout = 1000 * 60 * 60 * 24 * 7;
++	// 			const threshold = lastNoti + timeout;
++	// 			if (Date.now() < threshold) {
++	// 				return;
++	// 			}
++	// 		}
++
++	// 		this.storageService.store('csLastUpdateNotification', Date.now(), StorageScope.APPLICATION, StorageTarget.MACHINE);
++
++	// 		this.notificationService.notify({
++	// 			severity: Severity.Info,
++	// 			message: `[code-server v${json.latest}](https://github.com/cdr/code-server/releases/tag/v${json.latest}) has been released!`,
++	// 		});
++	// 	};
++
++	// 	const updateLoop = (): void => {
++	// 		getUpdate(updateEndpoint)
++	// 			.catch(error => {
++	// 				this.logService.debug(`failed to check for update: ${error}`);
++	// 			})
++	// 			.finally(() => {
++	// 				// Check again every 6 hours.
++	// 				setTimeout(updateLoop, 1000 * 60 * 60 * 6);
++	// 			});
++	// 	};
++
++	// 	updateLoop();
++	// }
+ 
+ 	private addLogoutCommand(logoutEndpoint: string) {
+ 		CommandsRegistry.registerCommand(CodeServerClient.LOGOUT_COMMAND_ID, () => {
+diff --git a/code-server/lib/vscode/src/vs/workbench/browser/parts/editor/editor.contribution.ts b/code-server/lib/vscode/src/vs/workbench/browser/parts/editor/editor.contribution.ts
+index e0bcb959..8b9caf0f 100644
+--- a/code-server/lib/vscode/src/vs/workbench/browser/parts/editor/editor.contribution.ts
++++ b/code-server/lib/vscode/src/vs/workbench/browser/parts/editor/editor.contribution.ts
+@@ -43,7 +43,7 @@ import {
+ 	SplitEditorToFirstGroupAction, SplitEditorToLastGroupAction, SplitEditorToLeftGroupAction, SplitEditorToNextGroupAction, SplitEditorToPreviousGroupAction, SplitEditorToRightGroupAction, NavigateForwardInEditsAction,
+ 	NavigateBackwardsInEditsAction, NavigateForwardInNavigationsAction, NavigateBackwardsInNavigationsAction, NavigatePreviousInNavigationsAction, NavigatePreviousInEditsAction, NavigateToLastNavigationLocationAction,
+ 	MaximizeGroupHideSidebarAction, MoveEditorToNewWindowAction, CopyEditorToNewindowAction, RestoreEditorsToMainWindowAction, ToggleMaximizeEditorGroupAction, MinimizeOtherGroupsHideSidebarAction, CopyEditorGroupToNewWindowAction,
+-	MoveEditorGroupToNewWindowAction, NewEmptyEditorWindowAction, DspcoderExtentionAction
++	MoveEditorGroupToNewWindowAction, NewEmptyEditorWindowAction, DspcoderExtentionAction, DspcoderRunAction, DspcoderSubmitAction
+ } from 'vs/workbench/browser/parts/editor/editorActions';
+ import {
+ 	CLOSE_EDITORS_AND_GROUP_COMMAND_ID, CLOSE_EDITORS_IN_GROUP_COMMAND_ID, CLOSE_EDITORS_TO_THE_RIGHT_COMMAND_ID, CLOSE_EDITOR_COMMAND_ID, CLOSE_EDITOR_GROUP_COMMAND_ID, CLOSE_OTHER_EDITORS_IN_GROUP_COMMAND_ID,
+@@ -72,7 +72,7 @@ import { DynamicEditorConfigurations } from 'vs/workbench/browser/parts/editor/e
+ import { ConfigureEditorAction, ConfigureEditorTabsAction, EditorActionsDefaultAction, EditorActionsTitleBarAction, HideEditorActionsAction, HideEditorTabsAction, ShowMultipleEditorTabsAction, ShowSingleEditorTabAction, ZenHideEditorTabsAction, ZenShowMultipleEditorTabsAction, ZenShowSingleEditorTabAction } from 'vs/workbench/browser/actions/layoutActions';
+ import { ICommandAction } from 'vs/platform/action/common/action';
+ import { EditorContextKeys } from 'vs/editor/common/editorContextKeys';
+-import { Menu } from 'electron';
++// import { Menu } from 'electron';
+ 
+ //#region Editor Registrations
+ 
+@@ -179,6 +179,8 @@ registerAction2(ChangeEncodingAction);
+ registerAction2(NavigateForwardAction);
+ registerAction2(NavigateBackwardsAction);
+ registerAction2(DspcoderExtentionAction);
++registerAction2(DspcoderRunAction);
++registerAction2(DspcoderSubmitAction);
+ 
+ registerAction2(OpenNextEditor);
+ registerAction2(OpenPreviousEditor);
+@@ -754,19 +756,6 @@ MenuRegistry.appendMenuItem(MenuId.MenubarLayoutMenu, {
+ 	order: 1
+ });
+ 
+-// MenuRegistry.appendMenuItem(MenuId.MenubarLayoutMenu, {
+-// 	group: '2_split_in_group',
+-// 	command: {
+-// 	id: JOIN_EDITOR_IN_GROUP,
+-// 	title: {
+-// 		...localize2('dspcoderExtentionAction', "Dspcoder Extention Action"),
+-// 		mnemonicTitle: localize({ key: 'miDspcoderExtentionAction', comment: ['&& denotes a mnemonic'] }, "&&Dspcoder Extention Action"),
+-// 	}
+-// },
+-// 	when: SideBySideEditorActiveContext,
+-// 	order: 100
+-// });
+-
+ MenuRegistry.appendMenuItem(MenuId.MenubarLayoutMenu, {
+ 	group: '3_new_window',
+ 	command: {
+diff --git a/code-server/lib/vscode/src/vs/workbench/browser/parts/editor/editorActions.ts b/code-server/lib/vscode/src/vs/workbench/browser/parts/editor/editorActions.ts
+index 65691798..b0ab9078 100644
+--- a/code-server/lib/vscode/src/vs/workbench/browser/parts/editor/editorActions.ts
++++ b/code-server/lib/vscode/src/vs/workbench/browser/parts/editor/editorActions.ts
+@@ -39,7 +39,7 @@ import { ICommandActionTitle } from 'vs/platform/action/common/action';
+ import { IProgressService, ProgressLocation } from 'vs/platform/progress/common/progress';
+ import { resolveCommandsContext } from 'vs/workbench/browser/parts/editor/editorCommandsContext';
+ import { IListService } from 'vs/platform/list/browser/listService';
+-import {ICommandsExecuter} from 'vs/workbench/api/node/extHostCLIServer';
++// import {ICommandsExecuter} from 'vs/workbench/api/node/extHostCLIServer';
+ 
+ class ExecuteCommandAction extends Action2 {
+ 
+@@ -1455,12 +1455,82 @@ export class DspcoderExtentionAction extends Action2 {
+ 			keybinding: {
+ 				weight: KeybindingWeight.WorkbenchContrib,
+ 				win: { primary: KeyMod.WinCtrl | KeyCode.KeyO },
+-				mac: { primary: KeyMod.WinCtrl | KeyMod.Shift | KeyCode.KeyL },
+-				linux: { primary: KeyMod.CtrlCmd | KeyMod.Alt | KeyCode.KeyO }
++				mac: { primary: KeyMod.WinCtrl | KeyCode.KeyO },
++				linux: { primary: KeyMod.CtrlCmd | KeyCode.KeyO }
+ 			},
+ 			menu: [
+-				{ id: MenuId.MenubarGoMenu, group: '1_history_nav', order: 3 },
+-				{ id: MenuId.CommandCenter, order: 3 }
++				{ id: MenuId.MenubarGoMenu, group: 'cipherG', order: 10000000 },
++				{ id: MenuId.CommandCenter, order: 10000000 }
++			]
++		});
++	}
++    override async run(accessor: ServicesAccessor): Promise<void> {
++        const commandService = accessor.get(ICommandService);
++        
++        try {
++            await commandService.executeCommand('dspcoder.showTestResults');
++        } catch (error) {
++            console.error('Failed to execute Dspcoder Extension Action:', error);
++        }
++    }
++}
++
++export class DspcoderRunAction extends Action2 {
++	static readonly ID = 'dspcoder.runAction';
++	static readonly LABEL = localize('dspcoderRunAction', "Dspcoder Run Action");
++	constructor() {
++		super({
++			id: DspcoderRunAction.ID,
++			title: {
++				...localize2('dspcoderRunAction', "Run"),
++				mnemonicTitle: localize({ key: 'miDspcoderRunAction', comment: ['&& denotes a mnemonic'] }, "&&Run")
++			},
++			f1: true,
++			icon: Codicon.dspcoderrun2,
++			keybinding: {
++				weight: KeybindingWeight.WorkbenchContrib,
++				win: { primary: KeyMod.WinCtrl | KeyCode.KeyR },
++				mac: { primary: KeyMod.WinCtrl | KeyCode.KeyR },
++				linux: { primary: KeyMod.CtrlCmd | KeyCode.KeyR }
++			},
++			menu: [
++				{ id: MenuId.MenubarGoMenu, group: 'runG', order: 10000000 },
++				{ id: MenuId.CommandCenter, order: 10000000 }
++			]
++		});
++	}
++    override async run(accessor: ServicesAccessor): Promise<void> {
++        const commandService = accessor.get(ICommandService);
++        
++        try {
++            await commandService.executeCommand('dspcoder.showTestResults');
++        } catch (error) {
++            console.error('Failed to execute Dspcoder Extension Action:', error);
++        }
++    }
++}
++
++export class DspcoderSubmitAction extends Action2 {
++	static readonly ID = 'dspcoder.submitAction';
++	static readonly LABEL = localize('dspcoderSubmitAction', "Dspcoder Submit Action");
++	constructor() {
++		super({
++			id: DspcoderSubmitAction.ID,
++			title: {
++				...localize2('dspcoderSubmitAction', "Submit"),
++				mnemonicTitle: localize({ key: 'miDspcoderSubmitAction', comment: ['&& denotes a mnemonic'] }, "&&Submit")
++			},
++			f1: true,
++			icon: Codicon.dspcodersubmit2, 
++			keybinding: {
++				weight: KeybindingWeight.WorkbenchContrib,
++				win: { primary: KeyMod.WinCtrl | KeyCode.KeyR | KeyCode.KeyS },
++				mac: { primary: KeyMod.WinCtrl | KeyCode.KeyR | KeyCode.KeyS },
++				linux: { primary: KeyMod.CtrlCmd | KeyCode.KeyR | KeyCode.KeyS }
++			},
++			menu: [
++				{ id: MenuId.MenubarGoMenu, group: 'submitG', order: 10000900 },
++				{ id: MenuId.CommandCenter, order: 10000900 }
+ 			]
+ 		});
+ 	}
+diff --git a/code-server/lib/vscode/src/vs/workbench/contrib/chat/browser/chat.contribution.ts b/code-server/lib/vscode/src/vs/workbench/contrib/chat/browser/chat.contribution.ts
+index d2f8311d..36fef9b6 100644
+--- a/code-server/lib/vscode/src/vs/workbench/contrib/chat/browser/chat.contribution.ts
++++ b/code-server/lib/vscode/src/vs/workbench/contrib/chat/browser/chat.contribution.ts
+@@ -3,40 +3,41 @@
+  *  Licensed under the MIT License. See License.txt in the project root for license information.
+  *--------------------------------------------------------------------------------------------*/
+ 
+-import { MarkdownString, isMarkdownString } from 'vs/base/common/htmlContent';
+-import { Disposable } from 'vs/base/common/lifecycle';
+-import { Schemas } from 'vs/base/common/network';
+-import { isMacintosh } from 'vs/base/common/platform';
+-import * as nls from 'vs/nls';
+-import { AccessibleViewRegistry } from 'vs/platform/accessibility/browser/accessibleViewRegistry';
+-import { ICommandService } from 'vs/platform/commands/common/commands';
+-import { Extensions as ConfigurationExtensions, IConfigurationRegistry } from 'vs/platform/configuration/common/configurationRegistry';
+-import { SyncDescriptor } from 'vs/platform/instantiation/common/descriptors';
++// import { MarkdownString, isMarkdownString } from 'vs/base/common/htmlContent';
++// import { Disposable } from 'vs/base/common/lifecycle';
++// import { Schemas } from 'vs/base/common/network';
++// import { isMacintosh } from 'vs/base/common/platform';
++// import * as nls from 'vs/nls';
++// import { AccessibleViewRegistry } from 'vs/platform/accessibility/browser/accessibleViewRegistry';
++// import { ICommandService } from 'vs/platform/commands/common/commands';
++// import { Extensions as ConfigurationExtensions, IConfigurationRegistry } from 'vs/platform/configuration/common/configurationRegistry';
++// import { SyncDescriptor } from 'vs/platform/instantiation/common/descriptors';
+ import { InstantiationType, registerSingleton } from 'vs/platform/instantiation/common/extensions';
+-import { IInstantiationService } from 'vs/platform/instantiation/common/instantiation';
+-import { Registry } from 'vs/platform/registry/common/platform';
+-import { EditorPaneDescriptor, IEditorPaneRegistry } from 'vs/workbench/browser/editor';
+-import { IWorkbenchContributionsRegistry, Extensions as WorkbenchExtensions, WorkbenchPhase, registerWorkbenchContribution2 } from 'vs/workbench/common/contributions';
+-import { EditorExtensions, IEditorFactoryRegistry } from 'vs/workbench/common/editor';
+-import { ChatAccessibilityHelp } from 'vs/workbench/contrib/chat/browser/actions/chatAccessibilityHelp';
+-import { registerChatActions } from 'vs/workbench/contrib/chat/browser/actions/chatActions';
+-import { ACTION_ID_NEW_CHAT, registerNewChatActions } from 'vs/workbench/contrib/chat/browser/actions/chatClearActions';
+-import { registerChatCodeBlockActions, registerChatCodeCompareBlockActions } from 'vs/workbench/contrib/chat/browser/actions/chatCodeblockActions';
+-import { registerChatCopyActions } from 'vs/workbench/contrib/chat/browser/actions/chatCopyActions';
+-import { SubmitAction, registerChatExecuteActions } from 'vs/workbench/contrib/chat/browser/actions/chatExecuteActions';
+-import { registerChatFileTreeActions } from 'vs/workbench/contrib/chat/browser/actions/chatFileTreeActions';
+-import { registerChatExportActions } from 'vs/workbench/contrib/chat/browser/actions/chatImportExport';
+-import { registerMoveActions } from 'vs/workbench/contrib/chat/browser/actions/chatMoveActions';
+-import { registerQuickChatActions } from 'vs/workbench/contrib/chat/browser/actions/chatQuickInputActions';
+-import { registerChatTitleActions } from 'vs/workbench/contrib/chat/browser/actions/chatTitleActions';
++// import { IInstantiationService } from 'vs/platform/instantiation/common/instantiation';
++// import { Registry } from 'vs/platform/registry/common/platform';
++// import { EditorPaneDescriptor, IEditorPaneRegistry } from 'vs/workbench/browser/editor';
++// import { IWorkbenchContributionsRegistry, Extensions as WorkbenchExtensions, WorkbenchPhase, registerWorkbenchContribution2 } from 'vs/workbench/common/contributions';
++// import { EditorExtensions, IEditorFactoryRegistry } from 'vs/workbench/common/editor';
++// import { ChatAccessibilityHelp } from 'vs/workbench/contrib/chat/browser/actions/chatAccessibilityHelp';
++// import { registerChatActions } from 'vs/workbench/contrib/chat/browser/actions/chatActions';
++// import { ACTION_ID_NEW_CHAT } from 'vs/workbench/contrib/chat/browser/actions/chatClearActions';
++// import { registerChatCodeBlockActions, registerChatCodeCompareBlockActions } from 'vs/workbench/contrib/chat/browser/actions/chatCodeblockActions';
++// import { registerChatCopyActions } from 'vs/workbench/contrib/chat/browser/actions/chatCopyActions';
++// import { SubmitAction, registerChatExecuteActions } from 'vs/workbench/contrib/chat/browser/actions/chatExecuteActions';
++// import { SubmitAction } from 'vs/workbench/contrib/chat/browser/actions/chatExecuteActions';
++// import { registerChatFileTreeActions } from 'vs/workbench/contrib/chat/browser/actions/chatFileTreeActions';
++// import { registerChatExportActions } from 'vs/workbench/contrib/chat/browser/actions/chatImportExport';
++// import { registerMoveActions } from 'vs/workbench/contrib/chat/browser/actions/chatMoveActions';
++// import { registerQuickChatActions } from 'vs/workbench/contrib/chat/browser/actions/chatQuickInputActions';
++// import { registerChatTitleActions } from 'vs/workbench/contrib/chat/browser/actions/chatTitleActions';
+ import { IChatAccessibilityService, IChatCodeBlockContextProviderService, IChatWidgetService, IQuickChatService } from 'vs/workbench/contrib/chat/browser/chat';
+ import { ChatAccessibilityService } from 'vs/workbench/contrib/chat/browser/chatAccessibilityService';
+-import { ChatEditor, IChatEditorOptions } from 'vs/workbench/contrib/chat/browser/chatEditor';
+-import { ChatEditorInput, ChatEditorInputSerializer } from 'vs/workbench/contrib/chat/browser/chatEditorInput';
+-import { agentSlashCommandToMarkdown, agentToMarkdown } from 'vs/workbench/contrib/chat/browser/chatMarkdownDecorationsRenderer';
+-import { ChatExtensionPointHandler } from 'vs/workbench/contrib/chat/browser/chatParticipantContributions';
++// import { IChatEditorOptions } from 'vs/workbench/contrib/chat/browser/chatEditor';
++// import { ChatEditorInput } from 'vs/workbench/contrib/chat/browser/chatEditorInput';
++// import { agentSlashCommandToMarkdown, agentToMarkdown } from 'vs/workbench/contrib/chat/browser/chatMarkdownDecorationsRenderer';
++// import { ChatExtensionPointHandler } from 'vs/workbench/contrib/chat/browser/chatParticipantContributions';
+ import { QuickChatService } from 'vs/workbench/contrib/chat/browser/chatQuick';
+-import { ChatResponseAccessibleView } from 'vs/workbench/contrib/chat/browser/chatResponseAccessibleView';
++// import { ChatResponseAccessibleView } from 'vs/workbench/contrib/chat/browser/chatResponseAccessibleView';
+ import { ChatVariablesService } from 'vs/workbench/contrib/chat/browser/chatVariables';
+ import { ChatWidgetService } from 'vs/workbench/contrib/chat/browser/chatWidget';
+ import { ChatCodeBlockContextProviderService } from 'vs/workbench/contrib/chat/browser/codeBlockContextProviderService';
+@@ -44,8 +45,8 @@ import 'vs/workbench/contrib/chat/browser/contrib/chatInputEditorContrib';
+ import 'vs/workbench/contrib/chat/browser/contrib/chatContextAttachments';
+ import 'vs/workbench/contrib/chat/browser/contrib/chatInputCompletions';
+ import 'vs/workbench/contrib/chat/browser/contrib/chatInputEditorHover';
+-import { ChatAgentLocation, ChatAgentNameService, ChatAgentService, IChatAgentNameService, IChatAgentService } from 'vs/workbench/contrib/chat/common/chatAgents';
+-import { chatVariableLeader } from 'vs/workbench/contrib/chat/common/chatParserTypes';
++import { ChatAgentNameService, ChatAgentService, IChatAgentNameService, IChatAgentService } from 'vs/workbench/contrib/chat/common/chatAgents';
++// import { chatVariableLeader } from 'vs/workbench/contrib/chat/common/chatParserTypes';
+ import { IChatService } from 'vs/workbench/contrib/chat/common/chatService';
+ import { ChatService } from 'vs/workbench/contrib/chat/common/chatServiceImpl';
+ import { LanguageModelToolsService, ILanguageModelToolsService } from 'vs/workbench/contrib/chat/common/languageModelToolsService';
+@@ -55,221 +56,221 @@ import { ChatWidgetHistoryService, IChatWidgetHistoryService } from 'vs/workbenc
+ import { ILanguageModelsService, LanguageModelsService } from 'vs/workbench/contrib/chat/common/languageModels';
+ import { ILanguageModelStatsService, LanguageModelStatsService } from 'vs/workbench/contrib/chat/common/languageModelStats';
+ import { IVoiceChatService, VoiceChatService } from 'vs/workbench/contrib/chat/common/voiceChatService';
+-import { IEditorResolverService, RegisteredEditorPriority } from 'vs/workbench/services/editor/common/editorResolverService';
+-import { LifecyclePhase } from 'vs/workbench/services/lifecycle/common/lifecycle';
++// import { IEditorResolverService, RegisteredEditorPriority } from 'vs/workbench/services/editor/common/editorResolverService';
++// import { LifecyclePhase } from 'vs/workbench/services/lifecycle/common/lifecycle';
+ import '../common/chatColors';
+-import { registerChatContextActions } from 'vs/workbench/contrib/chat/browser/actions/chatContextActions';
+-import { registerChatDeveloperActions } from 'vs/workbench/contrib/chat/browser/actions/chatDeveloperActions';
+-import { LanguageModelToolsExtensionPointHandler } from 'vs/workbench/contrib/chat/common/tools/languageModelToolsContribution';
++// import { registerChatContextActions } from 'vs/workbench/contrib/chat/browser/actions/chatContextActions';
++// import { registerChatDeveloperActions } from 'vs/workbench/contrib/chat/browser/actions/chatDeveloperActions';
++// import { LanguageModelToolsExtensionPointHandler } from 'vs/workbench/contrib/chat/common/tools/languageModelToolsContribution';
+ 
+ // Register configuration
+-const configurationRegistry = Registry.as<IConfigurationRegistry>(ConfigurationExtensions.Configuration);
+-configurationRegistry.registerConfiguration({
+-	id: 'chatSidebar',
+-	title: nls.localize('interactiveSessionConfigurationTitle', "Chat"),
+-	type: 'object',
+-	properties: {
+-		'chat.editor.fontSize': {
+-			type: 'number',
+-			description: nls.localize('interactiveSession.editor.fontSize', "Controls the font size in pixels in chat codeblocks."),
+-			default: isMacintosh ? 12 : 14,
+-		},
+-		'chat.editor.fontFamily': {
+-			type: 'string',
+-			description: nls.localize('interactiveSession.editor.fontFamily', "Controls the font family in chat codeblocks."),
+-			default: 'default'
+-		},
+-		'chat.editor.fontWeight': {
+-			type: 'string',
+-			description: nls.localize('interactiveSession.editor.fontWeight', "Controls the font weight in chat codeblocks."),
+-			default: 'default'
+-		},
+-		'chat.editor.wordWrap': {
+-			type: 'string',
+-			description: nls.localize('interactiveSession.editor.wordWrap', "Controls whether lines should wrap in chat codeblocks."),
+-			default: 'off',
+-			enum: ['on', 'off']
+-		},
+-		'chat.editor.lineHeight': {
+-			type: 'number',
+-			description: nls.localize('interactiveSession.editor.lineHeight', "Controls the line height in pixels in chat codeblocks. Use 0 to compute the line height from the font size."),
+-			default: 0
+-		},
+-		'chat.experimental.implicitContext': {
+-			type: 'boolean',
+-			description: nls.localize('chat.experimental.implicitContext', "Controls whether a checkbox is shown to allow the user to determine which implicit context is included with a chat participant's prompt."),
+-			deprecated: true,
+-			default: false
+-		},
+-		'chat.experimental.variables.editor': {
+-			type: 'boolean',
+-			description: nls.localize('chat.experimental.variables.editor', "Enables variables for editor chat."),
+-			default: true
+-		},
+-		'chat.experimental.variables.notebook': {
+-			type: 'boolean',
+-			description: nls.localize('chat.experimental.variables.notebook', "Enables variables for notebook chat."),
+-			default: false
+-		},
+-		'chat.experimental.variables.terminal': {
+-			type: 'boolean',
+-			description: nls.localize('chat.experimental.variables.terminal', "Enables variables for terminal chat."),
+-			default: false
+-		},
+-	}
+-});
+-Registry.as<IEditorPaneRegistry>(EditorExtensions.EditorPane).registerEditorPane(
+-	EditorPaneDescriptor.create(
+-		ChatEditor,
+-		ChatEditorInput.EditorID,
+-		nls.localize('chat', "Chat")
+-	),
+-	[
+-		new SyncDescriptor(ChatEditorInput)
+-	]
+-);
++// const configurationRegistry = Registry.as<IConfigurationRegistry>(ConfigurationExtensions.Configuration);
++// configurationRegistry.registerConfiguration({
++// 	id: 'chatSidebar',
++// 	title: nls.localize('interactiveSessionConfigurationTitle', "Chat"),
++// 	type: 'object',
++// 	properties: {
++// 		'chat.editor.fontSize': {
++// 			type: 'number',
++// 			description: nls.localize('interactiveSession.editor.fontSize', "Controls the font size in pixels in chat codeblocks."),
++// 			default: isMacintosh ? 12 : 14,
++// 		},
++// 		'chat.editor.fontFamily': {
++// 			type: 'string',
++// 			description: nls.localize('interactiveSession.editor.fontFamily', "Controls the font family in chat codeblocks."),
++// 			default: 'default'
++// 		},
++// 		'chat.editor.fontWeight': {
++// 			type: 'string',
++// 			description: nls.localize('interactiveSession.editor.fontWeight', "Controls the font weight in chat codeblocks."),
++// 			default: 'default'
++// 		},
++// 		'chat.editor.wordWrap': {
++// 			type: 'string',
++// 			description: nls.localize('interactiveSession.editor.wordWrap', "Controls whether lines should wrap in chat codeblocks."),
++// 			default: 'off',
++// 			enum: ['on', 'off']
++// 		},
++// 		'chat.editor.lineHeight': {
++// 			type: 'number',
++// 			description: nls.localize('interactiveSession.editor.lineHeight', "Controls the line height in pixels in chat codeblocks. Use 0 to compute the line height from the font size."),
++// 			default: 0
++// 		},
++// 		'chat.experimental.implicitContext': {
++// 			type: 'boolean',
++// 			description: nls.localize('chat.experimental.implicitContext', "Controls whether a checkbox is shown to allow the user to determine which implicit context is included with a chat participant's prompt."),
++// 			deprecated: true,
++// 			default: false
++// 		},
++// 		'chat.experimental.variables.editor': {
++// 			type: 'boolean',
++// 			description: nls.localize('chat.experimental.variables.editor', "Enables variables for editor chat."),
++// 			default: true
++// 		},
++// 		'chat.experimental.variables.notebook': {
++// 			type: 'boolean',
++// 			description: nls.localize('chat.experimental.variables.notebook', "Enables variables for notebook chat."),
++// 			default: false
++// 		},
++// 		'chat.experimental.variables.terminal': {
++// 			type: 'boolean',
++// 			description: nls.localize('chat.experimental.variables.terminal', "Enables variables for terminal chat."),
++// 			default: false
++// 		},
++// 	}
++// });
++// Registry.as<IEditorPaneRegistry>(EditorExtensions.EditorPane).registerEditorPane(
++// 	EditorPaneDescriptor.create(
++// 		ChatEditor,
++// 		ChatEditorInput.EditorID,
++// 		nls.localize('chat', "Chat")
++// 	),
++// 	[
++// 		new SyncDescriptor(ChatEditorInput)
++// 	]
++// );
+ 
+-class ChatResolverContribution extends Disposable {
++// class ChatResolverContribution extends Disposable {
+ 
+-	static readonly ID = 'workbench.contrib.chatResolver';
++// 	static readonly ID = 'workbench.contrib.chatResolver';
+ 
+-	constructor(
+-		@IEditorResolverService editorResolverService: IEditorResolverService,
+-		@IInstantiationService instantiationService: IInstantiationService,
+-	) {
+-		super();
++// 	constructor(
++// 		@IEditorResolverService editorResolverService: IEditorResolverService,
++// 		@IInstantiationService instantiationService: IInstantiationService,
++// 	) {
++// 		super();
+ 
+-		this._register(editorResolverService.registerEditor(
+-			`${Schemas.vscodeChatSesssion}:**/**`,
+-			{
+-				id: ChatEditorInput.EditorID,
+-				label: nls.localize('chat', "Chat"),
+-				priority: RegisteredEditorPriority.builtin
+-			},
+-			{
+-				singlePerResource: true,
+-				canSupportResource: resource => resource.scheme === Schemas.vscodeChatSesssion
+-			},
+-			{
+-				createEditorInput: ({ resource, options }) => {
+-					return { editor: instantiationService.createInstance(ChatEditorInput, resource, options as IChatEditorOptions), options };
+-				}
+-			}
+-		));
+-	}
+-}
++// 		this._register(editorResolverService.registerEditor(
++// 			`${Schemas.vscodeChatSesssion}:**/**`,
++// 			{
++// 				id: ChatEditorInput.EditorID,
++// 				label: nls.localize('chat', "Chat"),
++// 				priority: RegisteredEditorPriority.builtin
++// 			},
++// 			{
++// 				singlePerResource: true,
++// 				canSupportResource: resource => resource.scheme === Schemas.vscodeChatSesssion
++// 			},
++// 			{
++// 				createEditorInput: ({ resource, options }) => {
++// 					return { editor: instantiationService.createInstance(ChatEditorInput, resource, options as IChatEditorOptions), options };
++// 				}
++// 			}
++// 		));
++// 	}
++// }
+ 
+-AccessibleViewRegistry.register(new ChatResponseAccessibleView());
+-AccessibleViewRegistry.register(new ChatAccessibilityHelp());
++// AccessibleViewRegistry.register(new ChatResponseAccessibleView());
++// AccessibleViewRegistry.register(new ChatAccessibilityHelp());
+ 
+-class ChatSlashStaticSlashCommandsContribution extends Disposable {
++// class ChatSlashStaticSlashCommandsContribution extends Disposable {
+ 
+-	constructor(
+-		@IChatSlashCommandService slashCommandService: IChatSlashCommandService,
+-		@ICommandService commandService: ICommandService,
+-		@IChatAgentService chatAgentService: IChatAgentService,
+-		@IChatVariablesService chatVariablesService: IChatVariablesService,
+-		@IInstantiationService instantiationService: IInstantiationService,
+-	) {
+-		super();
+-		this._store.add(slashCommandService.registerSlashCommand({
+-			command: 'clear',
+-			detail: nls.localize('clear', "Start a new chat"),
+-			sortText: 'z2_clear',
+-			executeImmediately: true,
+-			locations: [ChatAgentLocation.Panel]
+-		}, async () => {
+-			commandService.executeCommand(ACTION_ID_NEW_CHAT);
+-		}));
+-		this._store.add(slashCommandService.registerSlashCommand({
+-			command: 'help',
+-			detail: '',
+-			sortText: 'z1_help',
+-			executeImmediately: true,
+-			locations: [ChatAgentLocation.Panel]
+-		}, async (prompt, progress) => {
+-			const defaultAgent = chatAgentService.getDefaultAgent(ChatAgentLocation.Panel);
+-			const agents = chatAgentService.getAgents();
++// 	constructor(
++// 		@IChatSlashCommandService slashCommandService: IChatSlashCommandService,
++// 		@ICommandService commandService: ICommandService,
++// 		@IChatAgentService chatAgentService: IChatAgentService,
++// 		@IChatVariablesService chatVariablesService: IChatVariablesService,
++// 		@IInstantiationService instantiationService: IInstantiationService,
++// 	) {
++// 		super();
++// 		this._store.add(slashCommandService.registerSlashCommand({
++// 			command: 'clear',
++// 			detail: nls.localize('clear', "Start a new chat"),
++// 			sortText: 'z2_clear',
++// 			executeImmediately: true,
++// 			locations: [ChatAgentLocation.Panel]
++// 		}, async () => {
++// 			commandService.executeCommand(ACTION_ID_NEW_CHAT);
++// 		}));
++// 		this._store.add(slashCommandService.registerSlashCommand({
++// 			command: 'help',
++// 			detail: '',
++// 			sortText: 'z1_help',
++// 			executeImmediately: true,
++// 			locations: [ChatAgentLocation.Panel]
++// 		}, async (prompt, progress) => {
++// 			const defaultAgent = chatAgentService.getDefaultAgent(ChatAgentLocation.Panel);
++// 			const agents = chatAgentService.getAgents();
+ 
+-			// Report prefix
+-			if (defaultAgent?.metadata.helpTextPrefix) {
+-				if (isMarkdownString(defaultAgent.metadata.helpTextPrefix)) {
+-					progress.report({ content: defaultAgent.metadata.helpTextPrefix, kind: 'markdownContent' });
+-				} else {
+-					progress.report({ content: new MarkdownString(defaultAgent.metadata.helpTextPrefix), kind: 'markdownContent' });
+-				}
+-				progress.report({ content: new MarkdownString('\n\n'), kind: 'markdownContent' });
+-			}
++// 			// Report prefix
++// 			if (defaultAgent?.metadata.helpTextPrefix) {
++// 				if (isMarkdownString(defaultAgent.metadata.helpTextPrefix)) {
++// 					progress.report({ content: defaultAgent.metadata.helpTextPrefix, kind: 'markdownContent' });
++// 				} else {
++// 					progress.report({ content: new MarkdownString(defaultAgent.metadata.helpTextPrefix), kind: 'markdownContent' });
++// 				}
++// 				progress.report({ content: new MarkdownString('\n\n'), kind: 'markdownContent' });
++// 			}
+ 
+-			// Report agent list
+-			const agentText = (await Promise.all(agents
+-				.filter(a => a.id !== defaultAgent?.id)
+-				.filter(a => a.locations.includes(ChatAgentLocation.Panel))
+-				.map(async a => {
+-					const description = a.description ? `- ${a.description}` : '';
+-					const agentMarkdown = instantiationService.invokeFunction(accessor => agentToMarkdown(a, true, accessor));
+-					const agentLine = `- ${agentMarkdown} ${description}`;
+-					const commandText = a.slashCommands.map(c => {
+-						const description = c.description ? `- ${c.description}` : '';
+-						return `\t* ${agentSlashCommandToMarkdown(a, c)} ${description}`;
+-					}).join('\n');
++// 			// Report agent list
++// 			const agentText = (await Promise.all(agents
++// 				.filter(a => a.id !== defaultAgent?.id)
++// 				.filter(a => a.locations.includes(ChatAgentLocation.Panel))
++// 				.map(async a => {
++// 					const description = a.description ? `- ${a.description}` : '';
++// 					const agentMarkdown = instantiationService.invokeFunction(accessor => agentToMarkdown(a, true, accessor));
++// 					const agentLine = `- ${agentMarkdown} ${description}`;
++// 					const commandText = a.slashCommands.map(c => {
++// 						const description = c.description ? `- ${c.description}` : '';
++// 						return `\t* ${agentSlashCommandToMarkdown(a, c)} ${description}`;
++// 					}).join('\n');
+ 
+-					return (agentLine + '\n' + commandText).trim();
+-				}))).join('\n');
+-			progress.report({ content: new MarkdownString(agentText, { isTrusted: { enabledCommands: [SubmitAction.ID] } }), kind: 'markdownContent' });
++// 					return (agentLine + '\n' + commandText).trim();
++// 				}))).join('\n');
++// 			progress.report({ content: new MarkdownString(agentText, { isTrusted: { enabledCommands: [SubmitAction.ID] } }), kind: 'markdownContent' });
+ 
+-			// Report variables
+-			if (defaultAgent?.metadata.helpTextVariablesPrefix) {
+-				progress.report({ content: new MarkdownString('\n\n'), kind: 'markdownContent' });
+-				if (isMarkdownString(defaultAgent.metadata.helpTextVariablesPrefix)) {
+-					progress.report({ content: defaultAgent.metadata.helpTextVariablesPrefix, kind: 'markdownContent' });
+-				} else {
+-					progress.report({ content: new MarkdownString(defaultAgent.metadata.helpTextVariablesPrefix), kind: 'markdownContent' });
+-				}
++// 			// Report variables
++// 			if (defaultAgent?.metadata.helpTextVariablesPrefix) {
++// 				progress.report({ content: new MarkdownString('\n\n'), kind: 'markdownContent' });
++// 				if (isMarkdownString(defaultAgent.metadata.helpTextVariablesPrefix)) {
++// 					progress.report({ content: defaultAgent.metadata.helpTextVariablesPrefix, kind: 'markdownContent' });
++// 				} else {
++// 					progress.report({ content: new MarkdownString(defaultAgent.metadata.helpTextVariablesPrefix), kind: 'markdownContent' });
++// 				}
+ 
+-				const variables = [
+-					...chatVariablesService.getVariables(ChatAgentLocation.Panel),
+-					{ name: 'file', description: nls.localize('file', "Choose a file in the workspace") }
+-				];
+-				const variableText = variables
+-					.map(v => `* \`${chatVariableLeader}${v.name}\` - ${v.description}`)
+-					.join('\n');
+-				progress.report({ content: new MarkdownString('\n' + variableText), kind: 'markdownContent' });
+-			}
++// 				const variables = [
++// 					...chatVariablesService.getVariables(ChatAgentLocation.Panel),
++// 					{ name: 'file', description: nls.localize('file', "Choose a file in the workspace") }
++// 				];
++// 				const variableText = variables
++// 					.map(v => `* \`${chatVariableLeader}${v.name}\` - ${v.description}`)
++// 					.join('\n');
++// 				progress.report({ content: new MarkdownString('\n' + variableText), kind: 'markdownContent' });
++// 			}
+ 
+-			// Report help text ending
+-			if (defaultAgent?.metadata.helpTextPostfix) {
+-				progress.report({ content: new MarkdownString('\n\n'), kind: 'markdownContent' });
+-				if (isMarkdownString(defaultAgent.metadata.helpTextPostfix)) {
+-					progress.report({ content: defaultAgent.metadata.helpTextPostfix, kind: 'markdownContent' });
+-				} else {
+-					progress.report({ content: new MarkdownString(defaultAgent.metadata.helpTextPostfix), kind: 'markdownContent' });
+-				}
+-			}
+-		}));
+-	}
+-}
++// 			// Report help text ending
++// 			if (defaultAgent?.metadata.helpTextPostfix) {
++// 				progress.report({ content: new MarkdownString('\n\n'), kind: 'markdownContent' });
++// 				if (isMarkdownString(defaultAgent.metadata.helpTextPostfix)) {
++// 					progress.report({ content: defaultAgent.metadata.helpTextPostfix, kind: 'markdownContent' });
++// 				} else {
++// 					progress.report({ content: new MarkdownString(defaultAgent.metadata.helpTextPostfix), kind: 'markdownContent' });
++// 				}
++// 			}
++// 		}));
++// 	}
++// }
+ 
+-const workbenchContributionsRegistry = Registry.as<IWorkbenchContributionsRegistry>(WorkbenchExtensions.Workbench);
+-registerWorkbenchContribution2(ChatResolverContribution.ID, ChatResolverContribution, WorkbenchPhase.BlockStartup);
+-workbenchContributionsRegistry.registerWorkbenchContribution(ChatSlashStaticSlashCommandsContribution, LifecyclePhase.Eventually);
+-Registry.as<IEditorFactoryRegistry>(EditorExtensions.EditorFactory).registerEditorSerializer(ChatEditorInput.TypeID, ChatEditorInputSerializer);
+-registerWorkbenchContribution2(ChatExtensionPointHandler.ID, ChatExtensionPointHandler, WorkbenchPhase.BlockStartup);
+-registerWorkbenchContribution2(LanguageModelToolsExtensionPointHandler.ID, LanguageModelToolsExtensionPointHandler, WorkbenchPhase.BlockRestore);
++// const workbenchContributionsRegistry = Registry.as<IWorkbenchContributionsRegistry>(WorkbenchExtensions.Workbench);
++// registerWorkbenchContribution2(ChatResolverContribution.ID, ChatResolverContribution, WorkbenchPhase.BlockStartup);
++// workbenchContributionsRegistry.registerWorkbenchContribution(ChatSlashStaticSlashCommandsContribution, LifecyclePhase.Eventually);
++// Registry.as<IEditorFactoryRegistry>(EditorExtensions.EditorFactory).registerEditorSerializer(ChatEditorInput.TypeID, ChatEditorInputSerializer);
++// registerWorkbenchContribution2(ChatExtensionPointHandler.ID, ChatExtensionPointHandler, WorkbenchPhase.BlockStartup);
++// registerWorkbenchContribution2(LanguageModelToolsExtensionPointHandler.ID, LanguageModelToolsExtensionPointHandler, WorkbenchPhase.BlockRestore);
+ 
+-registerChatActions();
+-registerChatCopyActions();
+-registerChatCodeBlockActions();
+-registerChatCodeCompareBlockActions();
+-registerChatFileTreeActions();
+-registerChatTitleActions();
+-registerChatExecuteActions();
+-registerQuickChatActions();
+-registerChatExportActions();
+-registerMoveActions();
+-registerNewChatActions();
+-registerChatContextActions();
+-registerChatDeveloperActions();
++// registerChatActions();
++// registerChatCopyActions();
++// registerChatCodeBlockActions();
++// registerChatCodeCompareBlockActions();
++// registerChatFileTreeActions();
++// registerChatTitleActions();
++// registerChatExecuteActions();
++// registerQuickChatActions();
++// registerChatExportActions();
++// registerMoveActions();
++// registerNewChatActions();
++// registerChatContextActions();
++// registerChatDeveloperActions();
+ 
+ registerSingleton(IChatService, ChatService, InstantiationType.Delayed);
+ registerSingleton(IChatWidgetService, ChatWidgetService, InstantiationType.Delayed);
