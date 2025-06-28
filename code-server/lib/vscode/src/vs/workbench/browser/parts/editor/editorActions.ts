@@ -39,7 +39,7 @@ import { ICommandActionTitle } from 'vs/platform/action/common/action';
 import { IProgressService, ProgressLocation } from 'vs/platform/progress/common/progress';
 import { resolveCommandsContext } from 'vs/workbench/browser/parts/editor/editorCommandsContext';
 import { IListService } from 'vs/platform/list/browser/listService';
-import {ICommandsExecuter} from 'vs/workbench/api/node/extHostCLIServer';
+// import {ICommandsExecuter} from 'vs/workbench/api/node/extHostCLIServer';
 
 class ExecuteCommandAction extends Action2 {
 
@@ -1455,12 +1455,82 @@ export class DspcoderExtentionAction extends Action2 {
 			keybinding: {
 				weight: KeybindingWeight.WorkbenchContrib,
 				win: { primary: KeyMod.WinCtrl | KeyCode.KeyO },
-				mac: { primary: KeyMod.WinCtrl | KeyMod.Shift | KeyCode.KeyL },
-				linux: { primary: KeyMod.CtrlCmd | KeyMod.Alt | KeyCode.KeyO }
+				mac: { primary: KeyMod.WinCtrl | KeyCode.KeyO },
+				linux: { primary: KeyMod.CtrlCmd | KeyCode.KeyO }
 			},
 			menu: [
-				{ id: MenuId.MenubarGoMenu, group: '1_history_nav', order: 3 },
-				{ id: MenuId.CommandCenter, order: 3 }
+				{ id: MenuId.MenubarGoMenu, group: 'cipherG', order: 10000000 },
+				{ id: MenuId.CommandCenter, order: 10000000 }
+			]
+		});
+	}
+    override async run(accessor: ServicesAccessor): Promise<void> {
+        const commandService = accessor.get(ICommandService);
+        
+        try {
+            await commandService.executeCommand('dspcoder.showTestResults');
+        } catch (error) {
+            console.error('Failed to execute Dspcoder Extension Action:', error);
+        }
+    }
+}
+
+export class DspcoderRunAction extends Action2 {
+	static readonly ID = 'dspcoder.runAction';
+	static readonly LABEL = localize('dspcoderRunAction', "Dspcoder Run Action");
+	constructor() {
+		super({
+			id: DspcoderRunAction.ID,
+			title: {
+				...localize2('dspcoderRunAction', "Run"),
+				mnemonicTitle: localize({ key: 'miDspcoderRunAction', comment: ['&& denotes a mnemonic'] }, "&&Run")
+			},
+			f1: true,
+			icon: Codicon.dspcoderrun2,
+			keybinding: {
+				weight: KeybindingWeight.WorkbenchContrib,
+				win: { primary: KeyMod.WinCtrl | KeyCode.KeyR },
+				mac: { primary: KeyMod.WinCtrl | KeyCode.KeyR },
+				linux: { primary: KeyMod.CtrlCmd | KeyCode.KeyR }
+			},
+			menu: [
+				{ id: MenuId.MenubarGoMenu, group: 'runG', order: 10000000 },
+				{ id: MenuId.CommandCenter, order: 10000000 }
+			]
+		});
+	}
+    override async run(accessor: ServicesAccessor): Promise<void> {
+        const commandService = accessor.get(ICommandService);
+        
+        try {
+            await commandService.executeCommand('dspcoder.showTestResults');
+        } catch (error) {
+            console.error('Failed to execute Dspcoder Extension Action:', error);
+        }
+    }
+}
+
+export class DspcoderSubmitAction extends Action2 {
+	static readonly ID = 'dspcoder.submitAction';
+	static readonly LABEL = localize('dspcoderSubmitAction', "Dspcoder Submit Action");
+	constructor() {
+		super({
+			id: DspcoderSubmitAction.ID,
+			title: {
+				...localize2('dspcoderSubmitAction', "Submit"),
+				mnemonicTitle: localize({ key: 'miDspcoderSubmitAction', comment: ['&& denotes a mnemonic'] }, "&&Submit")
+			},
+			f1: true,
+			icon: Codicon.dspcodersubmit2, 
+			keybinding: {
+				weight: KeybindingWeight.WorkbenchContrib,
+				win: { primary: KeyMod.WinCtrl | KeyCode.KeyR | KeyCode.KeyS },
+				mac: { primary: KeyMod.WinCtrl | KeyCode.KeyR | KeyCode.KeyS },
+				linux: { primary: KeyMod.CtrlCmd | KeyCode.KeyR | KeyCode.KeyS }
+			},
+			menu: [
+				{ id: MenuId.MenubarGoMenu, group: 'submitG', order: 10000900 },
+				{ id: MenuId.CommandCenter, order: 10000900 }
 			]
 		});
 	}

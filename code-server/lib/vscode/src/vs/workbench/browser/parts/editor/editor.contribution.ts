@@ -43,7 +43,7 @@ import {
 	SplitEditorToFirstGroupAction, SplitEditorToLastGroupAction, SplitEditorToLeftGroupAction, SplitEditorToNextGroupAction, SplitEditorToPreviousGroupAction, SplitEditorToRightGroupAction, NavigateForwardInEditsAction,
 	NavigateBackwardsInEditsAction, NavigateForwardInNavigationsAction, NavigateBackwardsInNavigationsAction, NavigatePreviousInNavigationsAction, NavigatePreviousInEditsAction, NavigateToLastNavigationLocationAction,
 	MaximizeGroupHideSidebarAction, MoveEditorToNewWindowAction, CopyEditorToNewindowAction, RestoreEditorsToMainWindowAction, ToggleMaximizeEditorGroupAction, MinimizeOtherGroupsHideSidebarAction, CopyEditorGroupToNewWindowAction,
-	MoveEditorGroupToNewWindowAction, NewEmptyEditorWindowAction, DspcoderExtentionAction
+	MoveEditorGroupToNewWindowAction, NewEmptyEditorWindowAction, DspcoderExtentionAction, DspcoderRunAction, DspcoderSubmitAction
 } from 'vs/workbench/browser/parts/editor/editorActions';
 import {
 	CLOSE_EDITORS_AND_GROUP_COMMAND_ID, CLOSE_EDITORS_IN_GROUP_COMMAND_ID, CLOSE_EDITORS_TO_THE_RIGHT_COMMAND_ID, CLOSE_EDITOR_COMMAND_ID, CLOSE_EDITOR_GROUP_COMMAND_ID, CLOSE_OTHER_EDITORS_IN_GROUP_COMMAND_ID,
@@ -72,7 +72,7 @@ import { DynamicEditorConfigurations } from 'vs/workbench/browser/parts/editor/e
 import { ConfigureEditorAction, ConfigureEditorTabsAction, EditorActionsDefaultAction, EditorActionsTitleBarAction, HideEditorActionsAction, HideEditorTabsAction, ShowMultipleEditorTabsAction, ShowSingleEditorTabAction, ZenHideEditorTabsAction, ZenShowMultipleEditorTabsAction, ZenShowSingleEditorTabAction } from 'vs/workbench/browser/actions/layoutActions';
 import { ICommandAction } from 'vs/platform/action/common/action';
 import { EditorContextKeys } from 'vs/editor/common/editorContextKeys';
-import { Menu } from 'electron';
+// import { Menu } from 'electron';
 
 //#region Editor Registrations
 
@@ -179,6 +179,8 @@ registerAction2(ChangeEncodingAction);
 registerAction2(NavigateForwardAction);
 registerAction2(NavigateBackwardsAction);
 registerAction2(DspcoderExtentionAction);
+registerAction2(DspcoderRunAction);
+registerAction2(DspcoderSubmitAction);
 
 registerAction2(OpenNextEditor);
 registerAction2(OpenPreviousEditor);
@@ -753,19 +755,6 @@ MenuRegistry.appendMenuItem(MenuId.MenubarLayoutMenu, {
 	when: SideBySideEditorActiveContext,
 	order: 1
 });
-
-// MenuRegistry.appendMenuItem(MenuId.MenubarLayoutMenu, {
-// 	group: '2_split_in_group',
-// 	command: {
-// 	id: JOIN_EDITOR_IN_GROUP,
-// 	title: {
-// 		...localize2('dspcoderExtentionAction', "Dspcoder Extention Action"),
-// 		mnemonicTitle: localize({ key: 'miDspcoderExtentionAction', comment: ['&& denotes a mnemonic'] }, "&&Dspcoder Extention Action"),
-// 	}
-// },
-// 	when: SideBySideEditorActiveContext,
-// 	order: 100
-// });
 
 MenuRegistry.appendMenuItem(MenuId.MenubarLayoutMenu, {
 	group: '3_new_window',

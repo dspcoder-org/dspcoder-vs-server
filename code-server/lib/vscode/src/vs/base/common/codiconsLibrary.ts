@@ -579,4 +579,9 @@ export const codiconsLibrary = {
 	percentage: register('percentage', 0xec33),
 	sortPercentage: register('sort-percentage', 0xec33),
 	attach: register('attach', 0xec34),
+	dspcodericon: register('dspcodericon', 0xec4c),
+	dspcoderrun: register('dspcoderrun', 0xec4d),
+	dspcodersubmit: register('dspcodersubmit', 0xec4e),
+	dspcoderrun2: register('dspcoderrun2', 0xec4f),
+	dspcodersubmit2: register('dspcodersubmit2', 0xec50),
 } as const;
