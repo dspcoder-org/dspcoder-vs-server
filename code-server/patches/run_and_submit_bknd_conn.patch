@@ -1,0 +1,100 @@
+diff --git a/code-server/lib/vscode/src/vs/workbench/browser/parts/editor/editorActions.ts b/code-server/lib/vscode/src/vs/workbench/browser/parts/editor/editorActions.ts
+index b0ab90784..2c43c61f9 100644
+--- a/code-server/lib/vscode/src/vs/workbench/browser/parts/editor/editorActions.ts
++++ b/code-server/lib/vscode/src/vs/workbench/browser/parts/editor/editorActions.ts
+@@ -39,6 +39,8 @@ import { ICommandActionTitle } from 'vs/platform/action/common/action';
+ import { IProgressService, ProgressLocation } from 'vs/platform/progress/common/progress';
+ import { resolveCommandsContext } from 'vs/workbench/browser/parts/editor/editorCommandsContext';
+ import { IListService } from 'vs/platform/list/browser/listService';
++// import * as WebSocket from 'ws';
++
+ // import {ICommandsExecuter} from 'vs/workbench/api/node/extHostCLIServer';
+ 
+ class ExecuteCommandAction extends Action2 {
+@@ -1468,7 +1470,7 @@ export class DspcoderExtentionAction extends Action2 {
+         const commandService = accessor.get(ICommandService);
+         
+         try {
+-            await commandService.executeCommand('dspcoder.showTestResults');
++            await commandService.executeCommand('workbench.action.toggleAuxiliaryBar');
+         } catch (error) {
+             console.error('Failed to execute Dspcoder Extension Action:', error);
+         }
+@@ -1500,12 +1502,34 @@ export class DspcoderRunAction extends Action2 {
+ 		});
+ 	}
+     override async run(accessor: ServicesAccessor): Promise<void> {
+-        const commandService = accessor.get(ICommandService);
+-        
++		const workspacesService = accessor.get(IWorkspacesService);
++		const recentlyOpened = await workspacesService.getRecentlyOpened();
++		let wxpacefolder = '';
++
++		// take the first workspace folder
++		if (recentlyOpened.workspaces.length > 0) {
++			const workspace = recentlyOpened.workspaces[0];
++			if ('folderUri' in workspace && workspace.folderUri) {
++			wxpacefolder = workspace.folderUri.path.split('/').filter(Boolean).pop() || '';
++			} else {
++				// @TODO show vs code notification
++
++			}
++		} else {
++			// @TODO show vs code notification
++		}
+         try {
+-            await commandService.executeCommand('dspcoder.showTestResults');
++			// creating cypher counterpart websocket, Refer to cypher agent
++			const cypherWebSocket = new window.WebSocket(`ws://localhost:7778`);
++			cypherWebSocket.onopen = () => {
++				let msg = {"type":"VS_RUN",
++							"clientId":"",
++							"question": wxpacefolder}
++				cypherWebSocket.send(JSON.stringify(msg));
++
++			};
+         } catch (error) {
+-            console.error('Failed to execute Dspcoder Extension Action:', error);
++			// @TODO show vs code notification
+         }
+     }
+ }
+@@ -1535,12 +1559,34 @@ export class DspcoderSubmitAction extends Action2 {
+ 		});
+ 	}
+     override async run(accessor: ServicesAccessor): Promise<void> {
+-        const commandService = accessor.get(ICommandService);
+-        
++		const workspacesService = accessor.get(IWorkspacesService);
++		const recentlyOpened = await workspacesService.getRecentlyOpened();
++		let wxpacefolder = '';
++
++		// take the first workspace folder
++		if (recentlyOpened.workspaces.length > 0) {
++			const workspace = recentlyOpened.workspaces[0];
++			if ('folderUri' in workspace && workspace.folderUri) {
++			wxpacefolder = workspace.folderUri.path.split('/').filter(Boolean).pop() || '';
++			} else {
++				// @TODO show vs code notification
++
++			}
++		} else {
++			// @TODO show vs code notification
++		}
+         try {
+-            await commandService.executeCommand('dspcoder.showTestResults');
++			// creating cypher counterpart websocket, Refer to cypher agent
++			const cypherWebSocket = new window.WebSocket(`ws://localhost:7778`);
++			cypherWebSocket.onopen = () => {
++				let msg = {"type":"VS_SUBMIT",
++							"clientId":"",
++							"question": wxpacefolder}
++				cypherWebSocket.send(JSON.stringify(msg));
++
++			};
+         } catch (error) {
+-            console.error('Failed to execute Dspcoder Extension Action:', error);
++			// @TODO show vs code notification
+         }
+     }
+ }
