@@ -128,5 +128,9 @@ for (let dir of dirs) {
 	yarnInstall(dir, opts);
 }
 
-cp.execSync('git config pull.rebase merges');
-cp.execSync('git config blame.ignoreRevsFile .git-blame-ignore-revs');
+try {
+	cp.execSync('git config pull.rebase merges');
+	cp.execSync('git config blame.ignoreRevsFile .git-blame-ignore-revs');
+} catch (e) {
+  console.warn('Skipping git config pull.rebase: not a git repo or submodule');
+}

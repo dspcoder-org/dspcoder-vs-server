@@ -31,15 +31,16 @@ RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | b
 # expose port 3000
 EXPOSE 8080
 
+COPY ./code-server /home/code-server
 
-RUN cd /home && \
-    git clone https://github.com/coder/code-server.git && \
-    cd /home/code-server && \
-    git submodule update --init && \
-    quilt push -a && \
-    npm install -g typescript && \
-    npm install @coder/logger && \
-    npm install
+# RUN cd /home && \
+#     git clone https://github.com/coder/code-server.git && \
+#     cd /home/code-server && \
+#     git submodule update --init && \
+#     quilt push -a && \
+#     npm install -g typescript && \
+#     npm install @coder/logger && \
+#     npm install
     # npm run build && \
     # VERSION='1.100.2' npm run build:vscode
 
