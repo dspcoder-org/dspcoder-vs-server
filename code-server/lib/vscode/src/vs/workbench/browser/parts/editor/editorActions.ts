@@ -1502,34 +1502,12 @@ export class DspcoderRunAction extends Action2 {
 		});
 	}
     override async run(accessor: ServicesAccessor): Promise<void> {
-		const workspacesService = accessor.get(IWorkspacesService);
-		const recentlyOpened = await workspacesService.getRecentlyOpened();
-		let wxpacefolder = '';
-
-		// take the first workspace folder
-		if (recentlyOpened.workspaces.length > 0) {
-			const workspace = recentlyOpened.workspaces[0];
-			if ('folderUri' in workspace && workspace.folderUri) {
-			wxpacefolder = workspace.folderUri.path.split('/').filter(Boolean).pop() || '';
-			} else {
-				// @TODO show vs code notification
-
-			}
-		} else {
-			// @TODO show vs code notification
-		}
+        const commandService = accessor.get(ICommandService);
+        
         try {
-			// creating cypher counterpart websocket, Refer to cypher agent
-			const cypherWebSocket = new window.WebSocket(`ws://localhost:7778`);
-			cypherWebSocket.onopen = () => {
-				let msg = {"type":"VS_RUN",
-							"clientId":"",
-							"question": wxpacefolder}
-				cypherWebSocket.send(JSON.stringify(msg));
-
-			};
+            await commandService.executeCommand('dsp-cipher.run');
         } catch (error) {
-			// @TODO show vs code notification
+            console.error('Failed to execute Dspcoder Extension Action:', error);
         }
     }
 }
@@ -1559,34 +1537,12 @@ export class DspcoderSubmitAction extends Action2 {
 		});
 	}
     override async run(accessor: ServicesAccessor): Promise<void> {
-		const workspacesService = accessor.get(IWorkspacesService);
-		const recentlyOpened = await workspacesService.getRecentlyOpened();
-		let wxpacefolder = '';
-
-		// take the first workspace folder
-		if (recentlyOpened.workspaces.length > 0) {
-			const workspace = recentlyOpened.workspaces[0];
-			if ('folderUri' in workspace && workspace.folderUri) {
-			wxpacefolder = workspace.folderUri.path.split('/').filter(Boolean).pop() || '';
-			} else {
-				// @TODO show vs code notification
-
-			}
-		} else {
-			// @TODO show vs code notification
-		}
+        const commandService = accessor.get(ICommandService);
+        
         try {
-			// creating cypher counterpart websocket, Refer to cypher agent
-			const cypherWebSocket = new window.WebSocket(`ws://localhost:7778`);
-			cypherWebSocket.onopen = () => {
-				let msg = {"type":"VS_SUBMIT",
-							"clientId":"",
-							"question": wxpacefolder}
-				cypherWebSocket.send(JSON.stringify(msg));
-
-			};
+            await commandService.executeCommand('dsp-cipher.submit');
         } catch (error) {
-			// @TODO show vs code notification
+            console.error('Failed to execute Dspcoder Extension Action:', error);
         }
     }
 }
